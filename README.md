@@ -1,7 +1,9 @@
 # tematres-wp
 
-Plugin que implementa a integração de um Tematres com o WordPress
+Plugin que implementa a integração de um Tematres com o WordPress.
+
 Ao informar a URL de um Tematres, o WP reconhecerá os termos cadastrados no Tematres como Tags disponíveis para adicionar aos posts.
+
 Esse plugin toma controle das Tags nativas do WP (WP Core).
 
 ## TODO
