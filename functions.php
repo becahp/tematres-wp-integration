@@ -192,3 +192,52 @@ function pagina_config_renderizar_campos($args)
     }
 }
 add_action('admin_init', 'pagina_config_registrar_construir_campos');
+
+
+add_shortcode('shortcode_show_tags_tematres', 'show_tags_tematres');
+#Ex: [shortcode_show_tags_tematres] 
+function show_tags_tematres() {
+    ?>
+    <form action="<?php echo get_permalink() ?>" method="post">
+        <div>
+            <label for="field-name"> Informe o Termo:</label>
+            <?php
+            $termo = $_POST['termo'];
+            if (empty($termo)) {
+                echo "<input type=\"text\" name=\"termo\" id=\"termo\" minlength=\"2\" placeholder=\"laranja\" required />";      
+            } else {
+                echo "<input type=\"text\" name=\"termo\" id=\"termo\" minlength=\"2\" value=\"$termo\" placeholder=\"laranja\" required />";
+            }
+            ?>
+        </div>
+        <div>
+            <button type="submit">Enviar</button>
+        </div>
+    </form>
+    <?php
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // collect value of input field
+        $termo = $_POST['termo'];
+        if (empty($termo)) {
+            echo "Termo vazio";
+        } else {
+            $urlTematres = get_option('pagina_config_tematres_url');
+            echo "<p>Query de busca é \"$termo\"</p>";
+            $urlBusca = $urlTematres . "?task=search&arg=".strtolower($termo);
+            echo "<p>URL de busca é: $urlBusca</p>";
+        
+            $xml = simplexml_load_file($urlBusca)->result;
+            #var_dump($xml);
+            //carrega o arquivo XML e retornando um Array
+            $termos=array();
+            foreach($xml->term as $item){
+                array_push($termos,$item -> string);
+            } 
+        
+            for($i = 0; $i < count($termos); ++$i) {
+                echo "<strong>Termo $i:</strong> ".$termos[$i]."<br/>";
+            }
+        }
+    }
+}

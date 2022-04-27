@@ -9,7 +9,7 @@ Esse plugin toma controle das Tags nativas do WP (WP Core).
 ## TODO
 - [x] Plugin base com um campo para entrada da URL do Tematres
 - [ ] API do tematres
-    - [ ] Pegar resultados de uma query de busca
+    - [x] Pegar resultados de uma query de busca
     - [ ] Tratamento dos resultados (a partir do xml retornar um vetor de strings)
 - [ ] Integrar ao WP
     - [ ] Esconder campo de tags nativos do WP (ou sobrepor???)
