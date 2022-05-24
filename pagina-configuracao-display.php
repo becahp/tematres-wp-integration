@@ -25,6 +25,9 @@
 		<?php 
 			settings_fields( 'pagina_config' );
 			do_settings_sections( 'pagina_config' ); 
+
+			settings_fields("section-posts-types");
+			do_settings_sections("posts-types");
 		?>             
 		<?php submit_button(); ?>  
 	</form> 

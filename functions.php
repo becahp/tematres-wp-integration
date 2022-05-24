@@ -146,14 +146,53 @@ function pagina_config_registrar_construir_campos()
 
     add_settings_field(
         'pagina_config_tematres_url',
-        'Tematres URL',
+        'Tematres URL:',
         'pagina_config_renderizar_campos',
         'pagina_config',
         'pagina_config_secao',
         $args
     );
-
+    
     register_setting('pagina_config', 'pagina_config_tematres_url');
+
+    #adicionando checkbox
+    #https://wordpress.stackexchange.com/questions/328648/saving-multiple-checkboxes-with-wordpress-settings-api
+    #https://wordpress.stackexchange.com/questions/110503/how-to-use-checkbox-in-custom-option-page-using-the-setting-api
+    #http://qnimate.com/add-checkbox-using-wordpress-settings-api/
+
+    add_settings_section("section-posts-types", "Posts que serão aplicado as Tags", null, "posts-types");
+    add_settings_field('post_types', "Selecione os Posts:", "post_types_checkbox_field_1_render", "posts-types", "section-posts-types");  
+    register_setting("section-posts-types", 'post_types');   
+    
+}
+
+function post_types_checkbox_field_1_render() {
+
+    $options = get_option( 'post_types', [] );
+
+    $post_types_checkbox_field_1 = isset( $options['post_types_checkbox_field_1'] )
+        ? (array) $options['post_types_checkbox_field_1'] : [];
+    
+    
+    // Função que retorna todos os custom post types
+    $args = array(
+        'public'   => true,
+        '_builtin' => false,
+    );
+    $output = 'objects'; // names or objects, note names is the default
+    $operator = 'and'; // 'and' or 'or'
+    $post_types = get_post_types($args, $output, $operator);
+    // Adiciona o post comum também no inicio
+    array_unshift($post_types, get_post_types( [], 'objects' )["post"]);
+    foreach ($post_types as $post) {
+        $slug = $post->name;
+        $name = $post->label;
+    ?>
+    <input type='checkbox' id='<?php echo $slug?>' name='post_types[post_types_checkbox_field_1][]' <?php checked( in_array( $slug, $post_types_checkbox_field_1 ), 1 ); ?> value='<?php echo $slug?>'>
+        <label for="<?php echo $slug?>"><?php echo $name?></label>
+        <br>
+    <?php
+    }
 }
 
 function pagina_config_mensagem_geral()
@@ -290,19 +329,21 @@ function rudr_add_new_tags_metabox()
     $heading = 'Tags'; // meta box heading
     $callback = 'rudr_metabox_content'; // the name of the callback function
 
-    $args = array(
-        'public'   => true,
-        '_builtin' => false,
-    );
+    // $args = array(
+    //     'public'   => true,
+    //     '_builtin' => false,
+    // );
 
-    $output = 'names'; // names or objects, note names is the default
-    $operator = 'and'; // 'and' or 'or'
+    // $output = 'names'; // names or objects, note names is the default
+    // $operator = 'and'; // 'and' or 'or'
 
-    // Função que retorna todos os custom post types
-    $post_type = get_post_types($args, $output, $operator);
+    // // Função que retorna todos os custom post types
+    // $post_type = get_post_types($args, $output, $operator);
 
-    // Adiciona o post comum também
-    array_push($post_type, 'post');
+    // // Adiciona o post comum também
+    // array_push($post_type, 'post');
+
+    $post_type = get_option('post_types')["post_types_checkbox_field_1"]; 
 
     $position = 'side';
     $pri = 'low'; // priority, 'default' is good for us
@@ -316,19 +357,19 @@ add_action('admin_menu', 'rudr_add_new_tags_metabox');
 function rudr_metabox_content($post)
 {
 
-    // get all blog post tags as an array of objects
-    $all_tags = get_terms(array('taxonomy' => 'post_tag', 'hide_empty' => 0));
+    // // get all blog post tags as an array of objects
+    // $all_tags = get_terms(array('taxonomy' => 'post_tag', 'hide_empty' => 0));
 
-    // get all tags assigned to a post
-    $all_tags_of_post = get_the_terms($post->ID, 'post_tag');
+    // // get all tags assigned to a post
+    // $all_tags_of_post = get_the_terms($post->ID, 'post_tag');
 
-    // create an array of post tags ids
-    $ids = array();
-    if ($all_tags_of_post) {
-        foreach ($all_tags_of_post as $tag) {
-            $ids[] = $tag->term_id;
-        }
-    }
+    // // create an array of post tags ids
+    // $ids = array();
+    // if ($all_tags_of_post) {
+    //     foreach ($all_tags_of_post as $tag) {
+    //         $ids[] = $tag->term_id;
+    //     }
+    // }
 
     // HTML
     //echo '<div id="taxonomy-post_tag" class="categorydiv">';
