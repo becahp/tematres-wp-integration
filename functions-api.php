@@ -9,8 +9,8 @@ add_action( 'rest_api_init', function () {
   } );
 
 
-  add_action( 'rest_api_init', function () {
-    register_rest_route( 'tematres-wp-integration/v1', '/termo/(?P<termo>\w+)', array(
+add_action( 'rest_api_init', function () {
+    register_rest_route( 'tematres-wp-integration/v1', 'termo', array(
       'methods' => 'GET',
       'callback' => 'tematres_wp_busca',
   ) );
@@ -28,7 +28,7 @@ function tematres_wp_teste() {
 }
 
 function tematres_wp_busca($data){
-  $termo =  $data['termo'];
+  $termo =  $data['q'];
 
   //$termo = $_POST['termo'];
   if (empty($termo)) {

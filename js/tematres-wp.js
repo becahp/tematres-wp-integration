@@ -69,9 +69,7 @@ jQuery( document ).ready( function ( $ ) {
   $( '.tematres-wp-integration-escolhas' ).select2( {
     minimumInputLength: 3,
     ajax: {
-      url: function ( params ) {
-        return '/wp-json/tematres-wp-integration/v1/termo/' + params.term;
-      },
+      url: '/wp-json/tematres-wp-integration/v1/termo/',
       processResults: function ( response ) {
         // Transforms the top-level key of the response object from 'items' to 'results'
         return {
