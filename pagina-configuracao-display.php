@@ -25,7 +25,11 @@
 		<?php 
 			settings_fields( 'pagina_config' );
 			do_settings_sections( 'pagina_config' ); 
-
+			?>
+			<span>
+				<strong>Exemplo de url:</strong> http://mystematres/vocab/services.php
+			</span>
+			<?php
 			settings_fields("section-posts-types");
 			do_settings_sections("posts-types");
 		?>             
