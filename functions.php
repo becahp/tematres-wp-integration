@@ -19,7 +19,7 @@ define('TEMATRES_WP_CSS_URL', plugin_dir_url(__FILE__) . 'css/');
 include "functions-api.php";
 
 /**
- * Registro dos scripts usados
+ * Registro dos scripts usados nas páginas
  */
 function tematres_wp_style_scripts()
 {
@@ -34,13 +34,29 @@ function tematres_wp_style_scripts()
 
     wp_enqueue_script('js_tematres_wp', TEMATRES_WP_JS_URL . 'tematres-wp.js', array('jquery', 'js_select2'), $ver);
     // já adicionando a url pro ajax
-    wp_localize_script( 'js_tematres_wp', 'my_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+    wp_localize_script('js_tematres_wp', 'my_ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
 
     wp_enqueue_script('js_select2', TEMATRES_WP_JS_URL . 'select2.min.js', array(), $ver);
-
 }
 add_action('wp_enqueue_scripts', 'tematres_wp_style_scripts');
-add_action('admin_enqueue_scripts', 'tematres_wp_style_scripts');
+/**
+ * Registro dos scripts usados nas páginas
+ */
+function tematres_wp_style_scripts_admin()
+{
+
+    $ver = time();
+
+    wp_register_style('css_tematres_wp', TEMATRES_WP_CSS_URL . 'tematres-wp.css', false, $ver);
+    wp_enqueue_style('css_tematres_wp');
+
+    wp_enqueue_script('js_tematres_wp', TEMATRES_WP_JS_URL . 'tematres-wp.js', array(), $ver);
+    // já adicionando a url pro ajax
+    //wp_localize_script('js_tematres_wp', 'my_ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
+
+    //wp_enqueue_script('js_select2', TEMATRES_WP_JS_URL . 'select2.min.js', array(), $ver);
+}
+add_action('admin_enqueue_scripts', 'tematres_wp_style_scripts_admin');
 
 /**
  * Função que adiciona o menu ao Painel
@@ -207,15 +223,16 @@ add_action('admin_init', 'pagina_config_registrar_construir_campos');
 //--------------------------------------------------------------------- API do tematres
 add_shortcode('shortcode_show_tags_tematres', 'show_tags_tematres');
 #Ex: [shortcode_show_tags_tematres] 
-function show_tags_tematres() {
-    ?>
+function show_tags_tematres()
+{
+?>
     <form action="<?php echo get_permalink() ?>" method="post">
         <div>
             <label for="field-name"> Informe o Termo:</label>
             <?php
             $termo = $_POST['termo'];
             if (empty($termo)) {
-                echo "<input type=\"text\" name=\"termo\" id=\"termo\" minlength=\"2\" placeholder=\"laranja\" required />";      
+                echo "<input type=\"text\" name=\"termo\" id=\"termo\" minlength=\"2\" placeholder=\"laranja\" required />";
             } else {
                 echo "<input type=\"text\" name=\"termo\" id=\"termo\" minlength=\"2\" value=\"$termo\" placeholder=\"laranja\" required />";
             }
@@ -235,19 +252,19 @@ function show_tags_tematres() {
         } else {
             $urlTematres = get_option('pagina_config_tematres_url');
             echo "<p>Query de busca é \"$termo\"</p>";
-            $urlBusca = $urlTematres . "?task=search&arg=".strtolower($termo);
+            $urlBusca = $urlTematres . "?task=search&arg=" . strtolower($termo);
             echo "<p>URL de busca é: $urlBusca</p>";
-        
+
             $xml = simplexml_load_file($urlBusca)->result;
             #var_dump($xml);
             //carrega o arquivo XML e retornando um Array
-            $termos=array();
-            foreach($xml->term as $item){
-                array_push($termos,$item -> string);
-            } 
-        
-            for($i = 0; $i < count($termos); ++$i) {
-                echo "<strong>Termo $i:</strong> ".$termos[$i]."<br/>";
+            $termos = array();
+            foreach ($xml->term as $item) {
+                array_push($termos, $item->string);
+            }
+
+            for ($i = 0; $i < count($termos); ++$i) {
+                echo "<strong>Termo $i:</strong> " . $termos[$i] . "<br/>";
             }
         }
     }
@@ -257,7 +274,8 @@ function show_tags_tematres() {
 
 // Remove Categories and Tags
 add_action('init', 'myprefix_remove_tax');
-function myprefix_remove_tax() {
+function myprefix_remove_tax()
+{
     //register_taxonomy('category', array());
     register_taxonomy('post_tag', array());
 }
@@ -266,81 +284,91 @@ function myprefix_remove_tax() {
 /*
  * Add
  */
-function rudr_add_new_tags_metabox(){
-	$id = 'tematres-wp-integration_tag'; // it should be unique
-	$heading = 'Tags'; // meta box heading
-	$callback = 'rudr_metabox_content'; // the name of the callback function
-	
+function rudr_add_new_tags_metabox()
+{
+    $id = 'tematres-wp-integration_tag'; // it should be unique
+    $heading = 'Tags'; // meta box heading
+    $callback = 'rudr_metabox_content'; // the name of the callback function
+
     $args = array(
         'public'   => true,
         '_builtin' => false,
-     );
- 
+    );
+
     $output = 'names'; // names or objects, note names is the default
     $operator = 'and'; // 'and' or 'or'
- 
+
     // Função que retorna todos os custom post types
-    $post_type = get_post_types( $args, $output, $operator );
-    
+    $post_type = get_post_types($args, $output, $operator);
+
     // Adiciona o post comum também
     array_push($post_type, 'post');
-    
-	$position = 'side';
-	$pri = 'low'; // priority, 'default' is good for us
-	add_meta_box( $id, $heading, $callback, $post_type, $position, $pri );
+
+    $position = 'side';
+    $pri = 'low'; // priority, 'default' is good for us
+    add_meta_box($id, $heading, $callback, $post_type, $position, $pri);
 }
-add_action( 'admin_menu', 'rudr_add_new_tags_metabox');
- 
+add_action('admin_menu', 'rudr_add_new_tags_metabox');
+
 /*
  * Fill
  */
-function rudr_metabox_content($post) {  
- 
-	// get all blog post tags as an array of objects
-	$all_tags = get_terms( array('taxonomy' => 'post_tag', 'hide_empty' => 0) ); 
- 
-	// get all tags assigned to a post
-	$all_tags_of_post = get_the_terms( $post->ID, 'post_tag' );  
- 
-	// create an array of post tags ids
-	$ids = array();
-	if ( $all_tags_of_post ) {
-		foreach ($all_tags_of_post as $tag ) {
-			$ids[] = $tag->term_id;
-		}
-	}
- 
-	// HTML
-	echo '<div id="taxonomy-post_tag" class="categorydiv">';
-	// echo '<input type="hidden" name="tax_input[post_tag][]" value="0" />';
-	// echo '<ul>';
-	// foreach( $all_tags as $tag ){
-	// 	// unchecked by default
-	// 	$checked = "";
-	// 	// if an ID of a tag in the loop is in the array of assigned post tags - then check the checkbox
-	// 	if ( in_array( $tag->term_id, $ids ) ) {
-	// 		$checked = " checked='checked'";
-	// 	}
-	// 	$id = 'post_tag-' . $tag->term_id;
-	// 	echo "<li id='{$id}'>";
-	// 	echo "<label><input type='checkbox' name='tax_input[post_tag][]' id='in-$id'". $checked ." value='$tag->slug' /> $tag->name</label><br />";
-	// 	echo "</li>";
-	// }
-	// echo '</ul></div>'; // end HTML
+function rudr_metabox_content($post)
+{
 
-    echo '<select class="tematres-wp-integration-escolhas" name="escolha_tags" multiple="multiple">';
-    echo '<option value="">Selecione as Tags</option>';
-    echo '</select>';
-    echo '</div>';
+    // get all blog post tags as an array of objects
+    $all_tags = get_terms(array('taxonomy' => 'post_tag', 'hide_empty' => 0));
 
-}
+    // get all tags assigned to a post
+    $all_tags_of_post = get_the_terms($post->ID, 'post_tag');
 
-add_shortcode('shortcode_teste_select', 'teste_select');
-#Ex: [shortcode_teste_select] 
-function teste_select(){
+    // create an array of post tags ids
+    $ids = array();
+    if ($all_tags_of_post) {
+        foreach ($all_tags_of_post as $tag) {
+            $ids[] = $tag->term_id;
+        }
+    }
+
+    // HTML
+    //echo '<div id="taxonomy-post_tag" class="categorydiv">';
+    // echo '<input type="hidden" name="tax_input[post_tag][]" value="0" />';
+    // echo '<ul>';
+    // foreach( $all_tags as $tag ){
+    // 	// unchecked by default
+    // 	$checked = "";
+    // 	// if an ID of a tag in the loop is in the array of assigned post tags - then check the checkbox
+    // 	if ( in_array( $tag->term_id, $ids ) ) {
+    // 		$checked = " checked='checked'";
+    // 	}
+    // 	$id = 'post_tag-' . $tag->term_id;
+    // 	echo "<li id='{$id}'>";
+    // 	echo "<label><input type='checkbox' name='tax_input[post_tag][]' id='in-$id'". $checked ." value='$tag->slug' /> $tag->name</label><br />";
+    // 	echo "</li>";
+    // }
+    // echo '</ul></div>'; // end HTML
+
+    //echo '<select class="tematres-wp-integration-escolhas" name="escolha_tags" multiple="multiple">';
+    //echo '<option value="">Selecione as Tags</option>';
+    //echo '</select>';
+    //echo '</div>';
+    //echo do_shortcode('[shortcode_teste_select]');
     echo '<div id="taxonomy-post_tag" class="categorydiv">';
     echo '<select class="tematres-wp-integration-escolhas" name="escolha_tags" multiple="multiple">';
     echo '<option value="">Selecione as Tags</option>';
     echo '</select>';
+    echo '</div>';
+}
+
+add_shortcode('shortcode_teste_select', 'teste_select');
+#Ex: [shortcode_teste_select] 
+function teste_select()
+{
+    echo '<div id="taxonomy-post_tag" class="categorydiv" style="height: 75px;">';
+    echo '<p>';
+    echo '<select class="tematres-wp-integration-escolhas" name="escolha_tags" multiple="multiple">';
+    echo '<option value="">Selecione as Tags</option>';
+    echo '</select>';
+    echo '</p>';
     echo '</div>';
 }

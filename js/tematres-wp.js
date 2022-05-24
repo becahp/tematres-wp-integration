@@ -68,6 +68,11 @@ jQuery( document ).ready( function ( $ ) {
 
   $( '.tematres-wp-integration-escolhas' ).select2( {
     minimumInputLength: 3,
+    width: '100%',
+    language: {
+      inputTooShort: function() {
+        return 'Por favor escreva mais';
+      }},
     ajax: {
       url: '/wp-json/tematres-wp-integration/v1/termo/',
       processResults: function ( response ) {

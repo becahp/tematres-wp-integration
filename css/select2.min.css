@@ -113,15 +113,23 @@
 }
 
 .select2-container--open .select2-dropdown--above {
-  border-bottom: none;
+  /* border-bottom: none;
   border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0
+  border-bottom-right-radius: 0 */
+    border: none;
+    margin-top: 32px;
+    background: antiquewhite;
+    border-radius: 0;
 }
 
 .select2-container--open .select2-dropdown--below {
-  border-top: none;
+  /* border-top: none;
   border-top-left-radius: 0;
-  border-top-right-radius: 0
+  border-top-right-radius: 0 */
+  border: none;
+  margin-top: 32px;
+  background: antiquewhite;
+  border-radius: 0;
 }
 
 .select2-search--dropdown {
