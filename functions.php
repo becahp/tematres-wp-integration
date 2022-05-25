@@ -23,7 +23,6 @@ include "functions-api.php";
  */
 function tematres_wp_style_scripts()
 {
-
     $ver = time();
 
     wp_register_style('css_tematres_wp', TEMATRES_WP_CSS_URL . 'tematres-wp.css', false, $ver);
@@ -34,17 +33,17 @@ function tematres_wp_style_scripts()
 
     wp_enqueue_script('js_tematres_wp', TEMATRES_WP_JS_URL . 'tematres-wp.js', array('jquery', 'js_select2'), $ver);
     // já adicionando a url pro ajax
-    wp_localize_script('js_tematres_wp', 'my_ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
+    //wp_localize_script('js_tematres_wp', 'my_ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
 
     wp_enqueue_script('js_select2', TEMATRES_WP_JS_URL . 'select2.min.js', array(), $ver);
 }
 add_action('wp_enqueue_scripts', 'tematres_wp_style_scripts');
+
 /**
  * Registro dos scripts usados nas páginas
  */
 function tematres_wp_style_scripts_admin()
 {
-
     $ver = time();
 
     wp_register_style('css_tematres_wp', TEMATRES_WP_CSS_URL . 'tematres-wp.css', false, $ver);
@@ -217,6 +216,7 @@ function pagina_config_renderizar_campos($args)
     if ($args['wp_data'] == 'option') {
 
         $wp_data_value = get_option($args['name']);
+
     } elseif ($args['wp_data'] == 'post_meta') {
 
         $wp_data_value = get_post_meta($args['post_id'], $args['name'], true);
@@ -395,7 +395,7 @@ function rudr_metabox_content($post)
     //echo '</div>';
     //echo do_shortcode('[shortcode_teste_select]');
     echo '<div id="taxonomy-post_tag" class="categorydiv">';
-    echo '<select class="tematres-wp-integration-escolhas" name="escolha_tags" multiple="multiple">';
+    echo '<select id="escolha_tags" class="tematres-wp-integration-escolhas" name="escolha_tags" multiple="multiple">';
     echo '<option value="">Selecione as Tags</option>';
     echo '</select>';
     echo '</div>';
@@ -407,7 +407,7 @@ function teste_select()
 {
     echo '<div id="taxonomy-post_tag" class="categorydiv" style="height: 75px;">';
     echo '<p>';
-    echo '<select class="tematres-wp-integration-escolhas" name="escolha_tags" multiple="multiple">';
+    echo '<select id="escolha_tags" class="tematres-wp-integration-escolhas" name="escolha_tags" multiple="multiple">';
     echo '<option value="">Selecione as Tags</option>';
     echo '</select>';
     echo '</p>';

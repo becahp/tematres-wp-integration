@@ -54,7 +54,7 @@ function tematres_wp_busca($data){
       $data = array();
       for($i = 0; $i < count($termos); ++$i) {
           //https://makitweb.com/loading-data-remotely-in-select2-with-ajax/
-          $data[] = array("id"=>$i, "text"=>$termos[$i]);
+          $data[] = array("id"=>$termos[$i], "text"=>$termos[$i]);
       }
 
       return $data;
