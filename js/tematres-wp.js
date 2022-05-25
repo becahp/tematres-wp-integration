@@ -99,6 +99,14 @@ jQuery( document ).ready( function ( $ ) {
 
 
     // pegar funcao de salvar post e acrescentar adicionar as tags atuais no select
+    
+    //Para adicionar uma nova tag:
+    //wp_set_post_tags( 1, array('tag1','tag2'), true );
+    //OU
+    //wp_set_post_tags( 1, 'tag3', true );
+
+    //O wp_add_post_tags não ta funcionando pq o default valor do $post_id = 0 e fazendo wp_set_post_tags( 0, 'tag3', true ) não funciona.
+
     //console.log( $( '.tematres-wp-integration-escolhas' ).select2( 'data' ) );
 
 
