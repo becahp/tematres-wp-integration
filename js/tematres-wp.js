@@ -75,7 +75,10 @@ jQuery( document ).ready( function ( $ ) {
       language: {
         inputTooShort: function ( ) {
           return 'Por favor escreva mais';
-        }
+        },
+        searching: function ( ) {
+          return 'Pesquisando…';
+        },
       },
       ajax: {
         url: '/wp-json/tematres-wp-integration/v1/termo/',
@@ -91,24 +94,29 @@ jQuery( document ).ready( function ( $ ) {
 
     $( '.tematres-wp-integration-escolhas' ).on( 'select2:select', function ( e ) {
       var data = e.params.data;
-      console.log( data );
+      console.log( data.text );
+      //console.log( $( '.tematres-wp-integration-escolhas' ).select2( 'data' ) );
 
       //chamar a função de salvar a tag no WP core
-
+      $.ajax( {
+        type: 'POST',
+        url: my_ajax_object.ajax_url,
+        data: {
+          action: 'criar_tags',
+          tag: data.text,
+        },
+        success: function ( response ) {
+          console.log( 'recebi ' + response );
+        },
+        error: function ( response ) {
+          console.log( 'ERRO ' + response );
+        }
+      } );
     } );
 
 
     // pegar funcao de salvar post e acrescentar adicionar as tags atuais no select
-    
-    //Para adicionar uma nova tag:
-    //wp_set_post_tags( 1, array('tag1','tag2'), true );
-    //OU
-    //wp_set_post_tags( 1, 'tag3', true );
-
-    //O wp_add_post_tags não ta funcionando pq o default valor do $post_id = 0 e fazendo wp_set_post_tags( 0, 'tag3', true ) não funciona.
-
     //console.log( $( '.tematres-wp-integration-escolhas' ).select2( 'data' ) );
-
 
   } // fim do if se existe o select id='escolha_tags'
 } ); //fim do ajax

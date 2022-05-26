@@ -33,7 +33,7 @@ function tematres_wp_style_scripts()
 
     wp_enqueue_script('js_tematres_wp', TEMATRES_WP_JS_URL . 'tematres-wp.js', array('jquery', 'js_select2'), $ver);
     // já adicionando a url pro ajax
-    //wp_localize_script('js_tematres_wp', 'my_ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
+    wp_localize_script('js_tematres_wp', 'my_ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
 
     wp_enqueue_script('js_select2', TEMATRES_WP_JS_URL . 'select2.min.js', array(), $ver);
 }
@@ -51,7 +51,7 @@ function tematres_wp_style_scripts_admin()
 
     wp_enqueue_script('js_tematres_wp', TEMATRES_WP_JS_URL . 'tematres-wp.js', array(), $ver);
     // já adicionando a url pro ajax
-    //wp_localize_script('js_tematres_wp', 'my_ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
+    wp_localize_script('js_tematres_wp', 'my_ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
 
     //wp_enqueue_script('js_select2', TEMATRES_WP_JS_URL . 'select2.min.js', array(), $ver);
 }
@@ -338,41 +338,49 @@ function wpdocs_register_private_taxonomy() {
     if ($flag) register_taxonomy( 'post_tag', 'post', $args );
 
     $labels = array(
-        'name'                       => _x( 'Writers', 'taxonomy general name', 'textdomain' ),
-        'singular_name'              => _x( 'Writer', 'taxonomy singular name', 'textdomain' ),
-        'search_items'               => __( 'Search Writers', 'textdomain' ),
+        'name'                       => _x( 'Tags Tematres-WP', 'taxonomy general name', 'textdomain' ),
+        'singular_name'              => _x( 'Tag Tematres-WP', 'taxonomy singular name', 'textdomain' ),
+        'search_items'               => __( 'Search Tags Tematres-WP', 'textdomain' ),
         'popular_items'              => __( 'Popular Writers', 'textdomain' ),
-        'all_items'                  => __( 'All Writers', 'textdomain' ),
+        'all_items'                  => __( 'All Tags Tematres-WP', 'textdomain' ),
         'parent_item'                => null,
         'parent_item_colon'          => null,
-        'edit_item'                  => __( 'Edit Writer', 'textdomain' ),
-        'update_item'                => __( 'Update Writer', 'textdomain' ),
-        'add_new_item'               => __( 'Add New Writer', 'textdomain' ),
-        'new_item_name'              => __( 'New Writer Name', 'textdomain' ),
-        'separate_items_with_commas' => __( 'Separate writers with commas', 'textdomain' ),
-        'add_or_remove_items'        => __( 'Add or remove writers', 'textdomain' ),
-        'choose_from_most_used'      => __( 'Choose from the most used writers', 'textdomain' ),
-        'not_found'                  => __( 'No writers found.', 'textdomain' ),
-        'menu_name'                  => __( 'Writers', 'textdomain' ),
+        'edit_item'                  => __( 'Edit Tags Tematres-WP', 'textdomain' ),
+        'update_item'                => __( 'Update Tags Tematres-WP', 'textdomain' ),
+        'add_new_item'               => __( 'Add New Tags Tematres-WP', 'textdomain' ),
+        'new_item_name'              => __( 'New Tags Tematres-WP Name', 'textdomain' ),
+        'separate_items_with_commas' => __( 'Separate Tags Tematres-WP with commas', 'textdomain' ),
+        'add_or_remove_items'        => __( 'Add or remove Tags Tematres-WP', 'textdomain' ),
+        'choose_from_most_used'      => __( 'Choose from the most used Tags Tematres-WP', 'textdomain' ),
+        'not_found'                  => __( 'No Tags Tematres-WP found.', 'textdomain' ),
+        'menu_name'                  => __( 'Tags Tematres-WP', 'textdomain' ),
     );
  
     $args = array(
         'hierarchical'          => false,
         'labels'                => $labels,
-        'show_ui'               => true,
+        'show_ui'               => false,
+        //'show_in_nav_menus'     => false,
+        //'show_in_menu'          => false,
+        'show_in_quick_edit'    => false,
         'show_admin_column'     => true,
         'update_count_callback' => '_update_post_term_count',
         'query_var'             => true,
-        'rewrite'               => array( 'slug' => 'writer' ),
+        'rewrite'               => array( 'slug' => 'tematres_wp' ),
     );
  
-    register_taxonomy( 'writer', $post_type, $args );
-
-
+    register_taxonomy( 'tematres_wp', $post_type, $args );
 
 }
 add_action( 'init', 'wpdocs_register_private_taxonomy', 0 );
 
+
+//REMOVE MENUS
+function my_remove_sub_menus() {
+    //remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=category');
+    //remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=tematres_wp');
+}
+add_action('admin_menu', 'my_remove_sub_menus');
 
 //--------------------------------------------------------------------- criando a metabox
 /*
@@ -468,3 +476,40 @@ function teste_select()
     echo '</p>';
     echo '</div>';
 }
+
+/*
+* Função que salva a tag inserida no select2 como tag do WP Core se ela ainda não existir
+*
+* Função chamada pelo Javascript JS
+*/
+function ajax_criar_tags(){
+
+    $tag_escolhida = ( isset( $_POST['tag'] ) ) ? $_POST['tag'] : '';
+
+    if( empty( $tag_escolhida ) )
+        return;
+    
+    // Checa se o termo existe
+    $term = term_exists( $tag_escolhida, 'tematres_wp' );
+    
+    // Caso exista, apenas avisa no console
+    if ( $term !== 0 && $term !== null ) {
+        //echo __( $tag_escolhida . " post_tag exists!", "textdomain" );
+        echo ($tag_escolhida. ' já existe');
+    } 
+
+    // Caso contrário, cria o termo
+    if ($term == 0 || $term === null){
+        wp_insert_term(
+            $tag_escolhida,   // the term 
+            'tematres_wp', // the taxonomy
+            array()
+        );
+
+        echo ($tag_escolhida. ' inserida no Tags (Tematres-WP)');
+    }
+    
+    wp_die();
+}
+add_action( 'wp_ajax_nopriv_criar_tags', 'ajax_criar_tags' );
+add_action( 'wp_ajax_criar_tags', 'ajax_criar_tags' );

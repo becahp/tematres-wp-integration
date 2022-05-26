@@ -10,9 +10,16 @@ Esse plugin toma controle das Tags nativas do WP (WP Core).
 - [x] Plugin base com um campo para entrada da URL do Tematres
 - [ ] API do tematres
     - [x] Pegar resultados de uma query de busca
-    - [ ] Tratamento dos resultados (a partir do xml retornar um vetor de strings)
+    - [X] Tratamento dos resultados (a partir do xml retornar um vetor de strings)
 - [ ] Integrar ao WP
-    - [ ] Esconder campo de tags nativos do WP (ou sobrepor???)
-    - [ ] Criar campo customizado para seleção de tags (com choices.js), populado pelo vetor de strings já criado
-    - [ ] Após seleção das tags, criá-las dentro do WP Core
+    - [X] Esconder campo de tags nativos do WP (ou sobrepor???)
+    - [X] Criar campo customizado para seleção de tags (com ~~~choices.js~~ select2.js), populado pelo vetor de strings já criado
+    - [X] Após seleção das tags, criá-las dentro da ~~WP Core~~ nova taxonomia criada
     - [ ] Associar as tags ao post em questão
+
+
+O QUE FALTA FAZER
+[ ] Traduzir tudo para inglês
+[X] Esconder as tags "tematres_wp" do menu
+[ ] Remover os comentários "rabicho de código"
+[X] Esconder da interface do edit
