@@ -23,21 +23,11 @@
 	<?php settings_errors(); ?>  
 	<form method="POST" action="options.php">
 		<?php 
-			settings_fields( 'pagina_config' );
-			do_settings_sections( 'pagina_config' ); 
-			?>
-			<p>
-				<strong>Exemplo de url:</strong> http://mystematres/vocab/services.php
-			</p>
-			<p>
-				<strong>A URL salva no momento é:</strong>
-				<?php echo get_option('pagina_config_tematres_url'); ?>  
-			</p>
-			<?php
-			settings_fields("section-posts-types");
-			do_settings_sections("posts-types");
+			settings_fields("settings_all");
+			do_settings_sections("plugin-options");
 		?>             
 		<?php submit_button(); ?>  
 	</form> 
+
 
 </div>

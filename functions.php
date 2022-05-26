@@ -123,9 +123,9 @@ function pagina_config_registrar_construir_campos()
         // Title to be displayed on the administration page
         'URL do Tematres',
         // Callback used to render the description of the section
-        'pagina_config_mensagem_geral',
+        'pagina_config_mensagem_geral_url',
         // Page on which to add this section of options
-        'pagina_config'
+        'plugin-options'
     );
 
     unset($args);
@@ -147,22 +147,39 @@ function pagina_config_registrar_construir_campos()
         'pagina_config_tematres_url',
         'Tematres URL:',
         'pagina_config_renderizar_campos',
-        'pagina_config',
+        'plugin-options',
         'pagina_config_secao',
         $args
     );
     
-    register_setting('pagina_config', 'pagina_config_tematres_url');
+    register_setting('settings_all', 'pagina_config_tematres_url');
+
+    #Adicionando nome da Tag
+    //unset( $args );
+    $args = array(
+        'type' => 'input',
+        'subtype' => 'text',
+        'id' => 'tematres_tag_name',
+        'name' => 'tematres_tag_name',
+        'required' => 'true',
+        'placeholder' => 'Insira o nome da Tag',
+        'size' => 70,
+        'get_options_list' => '',
+        'value_type' => 'normal',
+        'wp_data' => 'option'
+    );
+    add_settings_section("section-tematres-tags-name", "Nome da Tag", 'pagina_config_mensagem_geral_name', "plugin-options");
+    add_settings_field('tematres_tag_name', "Informe o nome da Tag:", "pagina_config_renderizar_campos", "plugin-options", "section-tematres-tags-name", $args);  
+    register_setting("settings_all", 'tematres_tag_name');  
 
     #adicionando checkbox
     #https://wordpress.stackexchange.com/questions/328648/saving-multiple-checkboxes-with-wordpress-settings-api
     #https://wordpress.stackexchange.com/questions/110503/how-to-use-checkbox-in-custom-option-page-using-the-setting-api
     #http://qnimate.com/add-checkbox-using-wordpress-settings-api/
 
-    add_settings_section("section-posts-types", "Posts que serão aplicado as Tags", null, "posts-types");
-    add_settings_field('post_types', "Selecione os Posts:", "post_types_checkbox_field_1_render", "posts-types", "section-posts-types");  
-    register_setting("section-posts-types", 'post_types');   
-    
+    add_settings_section("section-posts-types", "Posts que serão aplicado as Tags", 'pagina_config_mensagem_geral_posts', "plugin-options");
+    add_settings_field('post_types', "Selecione os Posts:", "post_types_checkbox_field_1_render", "plugin-options", "section-posts-types");  
+    register_setting("settings_all", 'post_types');   
 }
 
 function post_types_checkbox_field_1_render() {
@@ -194,25 +211,31 @@ function post_types_checkbox_field_1_render() {
     }
 }
 
-function pagina_config_mensagem_geral()
+function pagina_config_mensagem_geral_url($args)
 {
-    echo '<p>Essa configuração se aplica a todas as funcionalidades do plugin Tematres WP.</p>';
+    ?>
+    <p>Essa configuração se aplica a todas as funcionalidades do plugin Tematres WP</p>
+    <p><strong>Exemplo de url:</strong> http://mystematres/vocab/services.php</p>
+	<p><strong>A URL salva no momento é:</strong> <?php echo get_option('pagina_config_tematres_url');?></p>
+    <?php
+}
+
+function pagina_config_mensagem_geral_name($args)
+{
+    ?>
+    <p>Defina o nome que irá aparecer como Tag</p>
+    <?php
+}
+
+function pagina_config_mensagem_geral_posts($args)
+{
+    ?>
+    <p>Escolha quais os posts que serão aplicados as Tags do Tematres</p>
+    <?php
 }
 
 function pagina_config_renderizar_campos($args)
 {
-    /* EXAMPLE INPUT
-    'type'      => 'input',
-    'subtype'   => '',
-    'id'    => $this->plugin_name.'_example_setting',
-    'name'      => $this->plugin_name.'_example_setting',
-    'required' => 'required="required"',
-    'get_option_list' => "",
-    'value_type' = serialized OR normal,
-    'wp_data'=>(option or post_meta),
-    'post_id' =>
-    */
-
     if ($args['wp_data'] == 'option') {
 
         $wp_data_value = get_option($args['name']);
@@ -337,23 +360,24 @@ function wpdocs_register_private_taxonomy() {
     }
     if ($flag) register_taxonomy( 'post_tag', 'post', $args );
 
+    //get_option('tematres_tag_name');
     $labels = array(
-        'name'                       => _x( 'Tags Tematres-WP', 'taxonomy general name', 'textdomain' ),
-        'singular_name'              => _x( 'Tag Tematres-WP', 'taxonomy singular name', 'textdomain' ),
-        'search_items'               => __( 'Search Tags Tematres-WP', 'textdomain' ),
+        'name'                       => _x( get_option("tematres_tag_name"), 'taxonomy general name', 'textdomain' ),
+        'singular_name'              => _x( get_option("tematres_tag_name"), 'taxonomy singular name', 'textdomain' ),
+        'search_items'               => __( 'Search '.get_option("tematres_tag_name"), 'textdomain' ),
         'popular_items'              => __( 'Popular Writers', 'textdomain' ),
-        'all_items'                  => __( 'All Tags Tematres-WP', 'textdomain' ),
+        'all_items'                  => __( 'All '.get_option("tematres_tag_name"), 'textdomain' ),
         'parent_item'                => null,
         'parent_item_colon'          => null,
-        'edit_item'                  => __( 'Edit Tags Tematres-WP', 'textdomain' ),
-        'update_item'                => __( 'Update Tags Tematres-WP', 'textdomain' ),
-        'add_new_item'               => __( 'Add New Tags Tematres-WP', 'textdomain' ),
-        'new_item_name'              => __( 'New Tags Tematres-WP Name', 'textdomain' ),
-        'separate_items_with_commas' => __( 'Separate Tags Tematres-WP with commas', 'textdomain' ),
-        'add_or_remove_items'        => __( 'Add or remove Tags Tematres-WP', 'textdomain' ),
-        'choose_from_most_used'      => __( 'Choose from the most used Tags Tematres-WP', 'textdomain' ),
-        'not_found'                  => __( 'No Tags Tematres-WP found.', 'textdomain' ),
-        'menu_name'                  => __( 'Tags Tematres-WP', 'textdomain' ),
+        'edit_item'                  => __( 'Edit '.get_option("tematres_tag_name"), 'textdomain' ),
+        'update_item'                => __( 'Update '.get_option("tematres_tag_name"), 'textdomain' ),
+        'add_new_item'               => __( 'Add New '.get_option("tematres_tag_name"), 'textdomain' ),
+        'new_item_name'              => __( 'New '.get_option("tematres_tag_name").' Name', 'textdomain' ),
+        'separate_items_with_commas' => __( 'Separate '.get_option("tematres_tag_name").' with commas', 'textdomain' ),
+        'add_or_remove_items'        => __( 'Add or remove '.get_option("tematres_tag_name"), 'textdomain' ),
+        'choose_from_most_used'      => __( 'Choose from the most used '.get_option("tematres_tag_name"), 'textdomain' ),
+        'not_found'                  => __( 'No '.get_option("tematres_tag_name").' found.', 'textdomain' ),
+        'menu_name'                  => __( get_option("tematres_tag_name"), 'textdomain' ),
     );
  
     $args = array(
@@ -366,6 +390,7 @@ function wpdocs_register_private_taxonomy() {
         'show_admin_column'     => true,
         'update_count_callback' => '_update_post_term_count',
         'query_var'             => true,
+        'publicly_queryable'    => true,
         'rewrite'               => array( 'slug' => 'tematres_wp' ),
     );
  
