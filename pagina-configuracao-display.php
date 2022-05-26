@@ -26,9 +26,13 @@
 			settings_fields( 'pagina_config' );
 			do_settings_sections( 'pagina_config' ); 
 			?>
-			<span>
+			<p>
 				<strong>Exemplo de url:</strong> http://mystematres/vocab/services.php
-			</span>
+			</p>
+			<p>
+				<strong>A URL salva no momento é:</strong>
+				<?php echo get_option('pagina_config_tematres_url'); ?>  
+			</p>
 			<?php
 			settings_fields("section-posts-types");
 			do_settings_sections("posts-types");
@@ -36,8 +40,4 @@
 		<?php submit_button(); ?>  
 	</form> 
 
-	<span>
-		A URL salva no momento é:
-		<?php echo get_option('pagina_config_tematres_url'); ?>  
-	</span>
 </div>

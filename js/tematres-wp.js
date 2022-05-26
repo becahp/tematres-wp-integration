@@ -114,6 +114,10 @@ jQuery( document ).ready( function ( $ ) {
       } );
     } );
 
+    // $( '.tematres-wp-integration-escolhas' ).on( 'select2:unselect', function ( e ) {
+
+
+    // } );
 
     // pegar funcao de salvar post e acrescentar adicionar as tags atuais no select
     //console.log( $( '.tematres-wp-integration-escolhas' ).select2( 'data' ) );

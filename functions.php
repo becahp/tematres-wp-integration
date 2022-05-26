@@ -419,47 +419,22 @@ add_action('admin_menu', 'rudr_add_new_tags_metabox');
  */
 function rudr_metabox_content($post)
 {
+    $term_obj_list = get_the_terms( $post->ID, 'tematres_wp' );
+    $optionArray =  wp_list_pluck($term_obj_list, 'name');
 
-    // // get all blog post tags as an array of objects
-    // $all_tags = get_terms(array('taxonomy' => 'post_tag', 'hide_empty' => 0));
-
-    // // get all tags assigned to a post
-    // $all_tags_of_post = get_the_terms($post->ID, 'post_tag');
-
-    // // create an array of post tags ids
-    // $ids = array();
-    // if ($all_tags_of_post) {
-    //     foreach ($all_tags_of_post as $tag) {
-    //         $ids[] = $tag->term_id;
-    //     }
-    // }
-
-    // HTML
-    //echo '<div id="taxonomy-post_tag" class="categorydiv">';
-    // echo '<input type="hidden" name="tax_input[post_tag][]" value="0" />';
-    // echo '<ul>';
-    // foreach( $all_tags as $tag ){
-    // 	// unchecked by default
-    // 	$checked = "";
-    // 	// if an ID of a tag in the loop is in the array of assigned post tags - then check the checkbox
-    // 	if ( in_array( $tag->term_id, $ids ) ) {
-    // 		$checked = " checked='checked'";
-    // 	}
-    // 	$id = 'post_tag-' . $tag->term_id;
-    // 	echo "<li id='{$id}'>";
-    // 	echo "<label><input type='checkbox' name='tax_input[post_tag][]' id='in-$id'". $checked ." value='$tag->slug' /> $tag->name</label><br />";
-    // 	echo "</li>";
-    // }
-    // echo '</ul></div>'; // end HTML
-
-    //echo '<select class="tematres-wp-integration-escolhas" name="escolha_tags" multiple="multiple">';
-    //echo '<option value="">Selecione as Tags</option>';
-    //echo '</select>';
-    //echo '</div>';
-    //echo do_shortcode('[shortcode_teste_select]');
     echo '<div id="taxonomy-post_tag" class="categorydiv">';
-    echo '<select id="escolha_tags" class="tematres-wp-integration-escolhas" name="escolha_tags" multiple="multiple">';
-    echo '<option value="">Selecione as Tags</option>';
+    echo '<select id="escolha_tags" class="tematres-wp-integration-escolhas" name="escolha_tags[]" multiple="multiple">';
+
+    if (empty($optionArray)) {
+        echo '<option value="">Selecione as Tags</option>';
+    } else {
+
+        for ($i = 0; $i < count($optionArray); $i++) {
+            //echo $optionArray[$i]."<br>";
+            echo '<option value="'. $optionArray[$i] .'" selected="selected">'.$optionArray[$i].'</option>';
+        }
+    }
+
     echo '</select>';
     echo '</div>';
 }
@@ -470,7 +445,7 @@ function teste_select()
 {
     echo '<div id="taxonomy-post_tag" class="categorydiv" style="height: 75px;">';
     echo '<p>';
-    echo '<select id="escolha_tags" class="tematres-wp-integration-escolhas" name="escolha_tags" multiple="multiple">';
+    echo '<select id="escolha_tags" class="tematres-wp-integration-escolhas" name="escolha_tags[]" multiple="multiple">';
     echo '<option value="">Selecione as Tags</option>';
     echo '</select>';
     echo '</p>';
@@ -513,3 +488,16 @@ function ajax_criar_tags(){
 }
 add_action( 'wp_ajax_nopriv_criar_tags', 'ajax_criar_tags' );
 add_action( 'wp_ajax_criar_tags', 'ajax_criar_tags' );
+
+add_action( 'save_post', 'set_post_default_category', 10, 3 ); 
+function set_post_default_category( $post_id, $post, $update ) {
+
+    if (isset($_POST["escolha_tags"])) {
+        $optionArray = $_POST["escolha_tags"];
+
+        // wp_set_post_terms can receive an array of strings separated by commas
+        // the false at the end replace all existing post terms for the specific tag (in this case 'tematres_wp' )
+        wp_set_post_terms( $post_id, $optionArray, 'tematres_wp', false );
+        
+    }
+}
