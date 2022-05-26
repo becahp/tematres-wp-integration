@@ -312,12 +312,67 @@ function show_tags_tematres()
 //--------------------------------------------------------------------- Editando as Tags
 
 // Remove Categories and Tags
-add_action('init', 'myprefix_remove_tax');
-function myprefix_remove_tax()
-{
-    //register_taxonomy('category', array());
-    register_taxonomy('post_tag', array());
+// add_action('init', 'myprefix_remove_tax');
+// function myprefix_remove_tax()
+// {
+//     //register_taxonomy('category', array());
+//     //register_taxonomy('post_tag', array());
+// }
+
+//--------------------------------------------------------------------- // Remover Categories and Tags (FORMA CORRETA)
+function wpdocs_register_private_taxonomy() {
+    $args = array(
+        'label'        => __( 'Tags', 'textdomain' ),
+        'public'       => false,
+        'rewrite'      => false,
+        'hierarchical' => true
+    );
+    
+    #escondendo a tag padrão do WP caso o Post seja selecionado no plugin
+    $post_type = get_option('post_types')["post_types_checkbox_field_1"];
+    //var_dump($post_type);
+    $flag = False;
+    foreach ($post_type as $post){
+        if ($post == "post") $flag = True;
+    }
+    if ($flag) register_taxonomy( 'post_tag', 'post', $args );
+
+    $labels = array(
+        'name'                       => _x( 'Writers', 'taxonomy general name', 'textdomain' ),
+        'singular_name'              => _x( 'Writer', 'taxonomy singular name', 'textdomain' ),
+        'search_items'               => __( 'Search Writers', 'textdomain' ),
+        'popular_items'              => __( 'Popular Writers', 'textdomain' ),
+        'all_items'                  => __( 'All Writers', 'textdomain' ),
+        'parent_item'                => null,
+        'parent_item_colon'          => null,
+        'edit_item'                  => __( 'Edit Writer', 'textdomain' ),
+        'update_item'                => __( 'Update Writer', 'textdomain' ),
+        'add_new_item'               => __( 'Add New Writer', 'textdomain' ),
+        'new_item_name'              => __( 'New Writer Name', 'textdomain' ),
+        'separate_items_with_commas' => __( 'Separate writers with commas', 'textdomain' ),
+        'add_or_remove_items'        => __( 'Add or remove writers', 'textdomain' ),
+        'choose_from_most_used'      => __( 'Choose from the most used writers', 'textdomain' ),
+        'not_found'                  => __( 'No writers found.', 'textdomain' ),
+        'menu_name'                  => __( 'Writers', 'textdomain' ),
+    );
+ 
+    $args = array(
+        'hierarchical'          => false,
+        'labels'                => $labels,
+        'show_ui'               => true,
+        'show_admin_column'     => true,
+        'update_count_callback' => '_update_post_term_count',
+        'query_var'             => true,
+        'rewrite'               => array( 'slug' => 'writer' ),
+    );
+ 
+    register_taxonomy( 'writer', $post_type, $args );
+
+
+
 }
+add_action( 'init', 'wpdocs_register_private_taxonomy', 0 );
+
 
 //--------------------------------------------------------------------- criando a metabox
 /*
