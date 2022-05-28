@@ -19,7 +19,7 @@ function tematres_wp_teste() {
     /*
         Função para teste de funcionamento
     */
-    $myArray['0'] = "Está funcionando!";
+    $myArray['0'] = __("It's alive!", 'tematres-wp-integration');
 
     return $myArray;
 }
@@ -29,7 +29,7 @@ function tematres_wp_busca($data) {
 
     //$termo = $_POST['termo'];
     if (empty($termo)) {
-        echo "Termo vazio";
+        echo __('Empty search term', 'tematres-wp-integration');
     }
     else {
         $urlTematres = get_option('pagina_config_tematres_url');

@@ -1,3 +1,9 @@
+/*
+ * Plugin Name: My Theme
+ * Author: Theme Author
+ * Text Domain: tematres-wp-integration
+ */
+
 jQuery( document ).ready( function ( $ ) {
 
   if ( document.getElementById( 'escolha_tags' ) ) {
@@ -74,10 +80,10 @@ jQuery( document ).ready( function ( $ ) {
       width: '100%',
       language: {
         inputTooShort: function ( ) {
-          return 'Por favor escreva mais';
+          return __( 'Please write more', 'tematres-wp-integration' );
         },
         searching: function ( ) {
-          return 'Pesquisando…';
+          return __( 'Searching...', 'tematres-wp-integration' );
         },
       },
       ajax: {
@@ -94,7 +100,7 @@ jQuery( document ).ready( function ( $ ) {
 
     $( '.tematres-wp-integration-escolhas' ).on( 'select2:select', function ( e ) {
       var data = e.params.data;
-      console.log( data.text );
+      //console.log( data.text );
       //console.log( $( '.tematres-wp-integration-escolhas' ).select2( 'data' ) );
 
       //chamar a função de salvar a tag no WP core
@@ -106,21 +112,15 @@ jQuery( document ).ready( function ( $ ) {
           tag: data.text,
         },
         success: function ( response ) {
-          console.log( 'recebi ' + response );
+          //console.log( 'recebi ' + response );
+          console.log( __( 'Sucess! Response: ', 'tematres-wp-integration' ) + response );
         },
         error: function ( response ) {
-          console.log( 'ERRO ' + response );
+          //console.log( 'ERRO ' + response );
+          console.log( __( 'ERROR! Response: ', 'tematres-wp-integration' ) + response );
         }
       } );
     } );
-
-    // $( '.tematres-wp-integration-escolhas' ).on( 'select2:unselect', function ( e ) {
-
-
-    // } );
-
-    // pegar funcao de salvar post e acrescentar adicionar as tags atuais no select
-    //console.log( $( '.tematres-wp-integration-escolhas' ).select2( 'data' ) );
 
   } // fim do if se existe o select id='escolha_tags'
 } ); //fim do ajax

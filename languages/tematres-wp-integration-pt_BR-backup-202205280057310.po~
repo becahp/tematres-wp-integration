@@ -1,0 +1,184 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Tematres WP\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-28 00:49+0000\n"
+"PO-Revision-Date: 2022-05-28 00:56+0000\n"
+"Last-Translator: \n"
+"Language-Team: Português do Brasil\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.2; wp-5.8.1\n"
+"X-Domain: tematres-wp-integration"
+
+#: functions.php:550
+msgid " already exists."
+msgstr "já existe."
+
+#: functions.php:562
+msgid " saved as Tematres Tags"
+msgstr "salvo como Tag Tematres"
+
+#: functions.php:431
+#, php-format
+msgid "%s"
+msgstr "%s"
+
+#: functions.php:424
+#, php-format
+msgid "Add New %s"
+msgstr "Adicionar Novo %s"
+
+#: functions.php:427
+#, php-format
+msgid "Add or remove %s"
+msgstr "Adicionar ou remover %s"
+
+#: functions.php:419 functions.php:430
+#, php-format
+msgid "All %s"
+msgstr "Todos(as) %s"
+
+#: functions.php:428
+#, php-format
+msgid "Choose from the most used %s"
+msgstr "Selecione a partir das %s mais usadas"
+
+#: functions.php:278
+msgid "Choose the post types where the Tematres Tags will be applied"
+msgstr "Selecione os tipos de posts onde serão aplicado as Tags"
+
+#: functions.php:258
+msgid "Currently, the saved URL is: "
+msgstr "A URL salva no momento é:"
+
+#: functions.php:271
+msgid "Define the Tag Name (this doesn't affect the term slug)"
+msgstr "Defina o Nome da Tag (isso não afeta o slug do termo)"
+
+#: functions.php:422
+#, php-format
+msgid "Edit %s"
+msgstr "Editar %s"
+
+#: functions-api.php:32
+msgid "Empty search term"
+msgstr "Termo vazio"
+
+#: js/tematres-wp.js:120
+msgid "ERROR! Response: "
+msgstr "ERROR! Resposta: "
+
+#. URI of the plugin
+#. Author URI of the plugin
+msgid "https://github.com/becahp"
+msgstr "https://github.com/becahp"
+
+#: functions.php:185
+msgid "Insert Tag Name:"
+msgstr "Insira o Nome da Tag"
+
+#. Description of the plugin
+msgid "Integração entre WP e Tematres"
+msgstr ""
+
+#: functions-api.php:22
+msgid "It's alive!"
+msgstr "Está funcionando!"
+
+#: functions.php:425
+#, php-format
+msgid "New %s Name"
+msgstr "Novo %s Nome"
+
+#: functions.php:429
+#, php-format
+msgid "No %s found"
+msgstr "Nenhum(a) %s encontrado(a)"
+
+#: js/tematres-wp.js:83
+msgid "Please write more"
+msgstr "Por favor, escreva mais"
+
+#: functions.php:418
+#, php-format
+msgid "Popular %s"
+msgstr "%s populares"
+
+#: functions.php:200
+msgid "Post types where Tematres Tags will be applied"
+msgstr "Tipos de posts onde serão aplicado as Tags Tematres"
+
+#. Author of the plugin
+msgid "Rebeca Moura e Lucas Rodrigues"
+msgstr "Rebeca Moura and Lucas Rodrigues"
+
+#: functions.php:417
+#, php-format
+msgid "Search %s"
+msgstr "Pesquisar %s"
+
+#: js/tematres-wp.js:86
+msgid "Searching..."
+msgstr "Procurando..."
+
+#: functions.php:206
+msgid "Select Post types:"
+msgstr "Selecione os tipos de posts:"
+
+#: functions.php:426
+#, php-format
+msgid "Separate %s with commas"
+msgstr "Separe %s com vírgulas"
+
+#: js/tematres-wp.js:116
+msgid "Sucess! Response: "
+msgstr "Sucesso! Resposta:"
+
+#: functions.php:179
+msgid "Tag Name"
+msgstr "Nome da Tag"
+
+#: functions.php:398
+msgid "Tags"
+msgstr "Tags"
+
+#. Title to be displayed on the administration page
+#: functions.php:129
+msgid "Tematres URL"
+msgstr "URL do Tematres"
+
+#. Name of the plugin
+#: functions.php:71 functions.php:72
+msgid "Tematres WP"
+msgstr "Tematres WP"
+
+#: pagina-configuracao-display.php:21
+msgid "Tematres WP plugin settings"
+msgstr "Configurações do plugin Tematres WP"
+
+#: functions.php:99
+msgid ""
+"There was an error adding this setting. Please try again. If this persists, "
+"shoot us an email."
+msgstr ""
+"Ocorreu um erro ao adicionar essa configuração. Por favor tente novamente. "
+"Se o erro persistir, nos mande um email."
+
+#: functions.php:248
+msgid "This setting applies to all features of the Tematres WP plugin."
+msgstr ""
+"Essa configuração se aplica à todas as funcionalidades do plugin Tematres WP."
+
+#: functions.php:423
+#, php-format
+msgid "Update %s"
+msgstr "Atualizar %s"
+
+#: functions.php:252
+msgid "URL example:"
+msgstr "Exemplo de URL:"

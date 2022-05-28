@@ -3,23 +3,30 @@
 /** 
  * Plugin Name: Tematres WP
  * Plugin URI: https://github.com/becahp
- * Description: Integração entre WP e Tematres
+ * Description: WordPress and Tematres Integration
  * Version: 1.0
+ * Requires at least: 5.8
+ * Requires PHP:      7.4
  * Author: Rebeca Moura e Lucas Rodrigues
  * Author URI: https://github.com/becahp
+ * License:           GPL v2 or later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain:       tematres-wp-integration
+ * Domain Path:       /languages
  */
 
-//Definicoes
+//Definitions
 define('TEMATRES_WP_PATH', plugin_dir_path(__FILE__) . '/');
 define('TEMATRES_WP_JS_PATH', plugin_dir_path(__FILE__) . 'js/');
 define('TEMATRES_WP_JS_URL', plugin_dir_url(__FILE__) . 'js/');
 define('TEMATRES_WP_CSS_PATH', plugin_dir_path(__FILE__) . 'css/');
 define('TEMATRES_WP_CSS_URL', plugin_dir_url(__FILE__) . 'css/');
 
+// Include API functions
 include "functions-api.php";
 
 /**
- * Registro dos scripts usados nas páginas
+ * Register scripts used on common pages
  */
 function tematres_wp_style_scripts()
 {
@@ -32,7 +39,6 @@ function tematres_wp_style_scripts()
     wp_enqueue_style('css_select2');
 
     wp_enqueue_script('js_tematres_wp', TEMATRES_WP_JS_URL . 'tematres-wp.js', array('jquery', 'js_select2'), $ver);
-    // já adicionando a url pro ajax
     wp_localize_script('js_tematres_wp', 'my_ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
 
     wp_enqueue_script('js_select2', TEMATRES_WP_JS_URL . 'select2.min.js', array(), $ver);
@@ -40,7 +46,7 @@ function tematres_wp_style_scripts()
 add_action('wp_enqueue_scripts', 'tematres_wp_style_scripts');
 
 /**
- * Registro dos scripts usados nas páginas
+ * Register scripts used on admin pages
  */
 function tematres_wp_style_scripts_admin()
 {
@@ -50,7 +56,6 @@ function tematres_wp_style_scripts_admin()
     wp_enqueue_style('css_tematres_wp');
 
     wp_enqueue_script('js_tematres_wp', TEMATRES_WP_JS_URL . 'tematres-wp.js', array(), $ver);
-    // já adicionando a url pro ajax
     wp_localize_script('js_tematres_wp', 'my_ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
 
     //wp_enqueue_script('js_select2', TEMATRES_WP_JS_URL . 'select2.min.js', array(), $ver);
@@ -58,13 +63,13 @@ function tematres_wp_style_scripts_admin()
 add_action('admin_enqueue_scripts', 'tematres_wp_style_scripts_admin');
 
 /**
- * Função que adiciona o menu ao Painel
+ * Adds the new menu to the painel
  */
 function tematres_wp_admin_menu()
 {
     add_menu_page(
-        __('Tematres WP', 'tematres-wp-plugin'),
-        __('Tematres WP', 'tematres-wp-plugin'),
+        __('Tematres WP', 'tematres-wp-integration'),
+        __('Tematres WP', 'tematres-wp-integration'),
         'manage_options', //'edit_posts', //'administrator'
         'tematres-wp-plugin',
         'tematres_wp_admin_page',
@@ -91,7 +96,7 @@ function pagina_config_mensagem_erro($error_message)
 {
     switch ($error_message) {
         case '1':
-            $message       = __('There was an error adding this setting. Please try again.  If this persists, shoot us an email.', 'tematres-wp-plugin');
+            $message       = __('There was an error adding this setting. Please try again. If this persists, shoot us an email.', 'tematres-wp-integration');
             $err_code      = esc_attr('pagina_config_tematres_url');
             $setting_field = 'pagina_config_tematres_url';
             break;
@@ -103,7 +108,7 @@ function pagina_config_mensagem_erro($error_message)
 
 
 /**
- * Função registerAndBuildFields chamada de registrar_construir_campos
+ * Function registerAndBuildFields called by registrar_construir_campos
  * https://blog.wplauncher.com/create-wordpress-plugin-settings-page/
  * https://github.com/wplauncher/settings-page
  * This file is where you define what fields you want to include in your settings form and it hooks up to another function that handles saving and pre-population of your form if users have already filled it out.
@@ -121,7 +126,7 @@ function pagina_config_registrar_construir_campos()
         // ID used to identify this section and with which to register options
         'pagina_config_secao',
         // Title to be displayed on the administration page
-        'URL do Tematres',
+        __('Tematres URL','tematres-wp-integration'),
         // Callback used to render the description of the section
         'pagina_config_mensagem_geral_url',
         // Page on which to add this section of options
@@ -168,8 +173,21 @@ function pagina_config_registrar_construir_campos()
         'value_type' => 'normal',
         'wp_data' => 'option'
     );
-    add_settings_section("section-tematres-tags-name", "Nome da Tag", 'pagina_config_mensagem_geral_name', "plugin-options");
-    add_settings_field('tematres_tag_name', "Informe o nome da Tag:", "pagina_config_renderizar_campos", "plugin-options", "section-tematres-tags-name", $args);  
+    
+    add_settings_section(
+        "section-tematres-tags-name",
+        __("Tag Name",'tematres-wp-integration'),
+        "pagina_config_mensagem_geral_name",
+        "plugin-options");
+    
+    add_settings_field(
+        'tematres_tag_name',
+        __("Insert Tag Name:",'tematres-wp-integration'),
+        "pagina_config_renderizar_campos",
+        "plugin-options",
+        "section-tematres-tags-name",
+        $args);  
+
     register_setting("settings_all", 'tematres_tag_name');  
 
     #adicionando checkbox
@@ -177,8 +195,19 @@ function pagina_config_registrar_construir_campos()
     #https://wordpress.stackexchange.com/questions/110503/how-to-use-checkbox-in-custom-option-page-using-the-setting-api
     #http://qnimate.com/add-checkbox-using-wordpress-settings-api/
 
-    add_settings_section("section-posts-types", "Posts que serão aplicado as Tags", 'pagina_config_mensagem_geral_posts', "plugin-options");
-    add_settings_field('post_types', "Selecione os Posts:", "post_types_checkbox_field_1_render", "plugin-options", "section-posts-types");  
+    add_settings_section(
+        "section-posts-types",
+        __("Post types where Tematres Tags will be applied",'tematres-wp-integration'),
+        'pagina_config_mensagem_geral_posts',
+        "plugin-options");
+
+    add_settings_field(
+        'post_types',
+        __("Select Post types:",'tematres-wp-integration'),
+        "post_types_checkbox_field_1_render",
+        "plugin-options",
+        "section-posts-types");
+
     register_setting("settings_all", 'post_types');   
 }
 
@@ -187,8 +216,8 @@ function post_types_checkbox_field_1_render() {
     $options = get_option( 'post_types', [] );
 
     $post_types_checkbox_field_1 = isset( $options['post_types_checkbox_field_1'] )
-        ? (array) $options['post_types_checkbox_field_1'] : [];
-    
+        ? (array) $options['post_types_checkbox_field_1'] 
+        : [];
     
     // Função que retorna todos os custom post types
     $args = array(
@@ -198,11 +227,13 @@ function post_types_checkbox_field_1_render() {
     $output = 'objects'; // names or objects, note names is the default
     $operator = 'and'; // 'and' or 'or'
     $post_types = get_post_types($args, $output, $operator);
+
     // Adiciona o post comum também no inicio
     array_unshift($post_types, get_post_types( [], 'objects' )["post"]);
     foreach ($post_types as $post) {
         $slug = $post->name;
         $name = $post->label;
+    
     ?>
     <input type='checkbox' id='<?php echo $slug?>' name='post_types[post_types_checkbox_field_1][]' <?php checked( in_array( $slug, $post_types_checkbox_field_1 ), 1 ); ?> value='<?php echo $slug?>'>
         <label for="<?php echo $slug?>"><?php echo $name?></label>
@@ -213,25 +244,39 @@ function post_types_checkbox_field_1_render() {
 
 function pagina_config_mensagem_geral_url($args)
 {
-    ?>
-    <p>Essa configuração se aplica a todas as funcionalidades do plugin Tematres WP</p>
-    <p><strong>Exemplo de url:</strong> http://mystematres/vocab/services.php</p>
-	<p><strong>A URL salva no momento é:</strong> <?php echo get_option('pagina_config_tematres_url');?></p>
-    <?php
+    echo '<p>';
+    echo __('This setting applies to all features of the Tematres WP plugin.','tematres-wp-integration');
+    echo '</p>';
+
+    echo '<p><strong>';
+    echo __('URL example:','tematres-wp-integration');
+    echo '</strong>';
+    echo 'http://mystematres/vocab/services.php';
+    echo '</p>';
+    
+    echo '<p><strong>';
+    echo __('Currently, the saved URL is: ','tematres-wp-integration');
+    echo '</strong>';
+    echo get_option('pagina_config_tematres_url');
+    echo '</p>';
+
+    // <p>Essa configuração se aplica a todas as funcionalidades do plugin Tematres WP</p>
+    // <p><strong>Exemplo de url:</strong> http://mystematres/vocab/services.php</p>
+    // <p><strong>A URL salva no momento é:</strong> echo get_option('pagina_config_tematres_url'); </p>    
 }
 
 function pagina_config_mensagem_geral_name($args)
 {
-    ?>
-    <p>Defina o nome que irá aparecer como Tag</p>
-    <?php
+    echo '<p>';
+    echo __("Define the Tag Name (this doesn't affect the term slug)",'tematres-wp-integration');
+    echo '</p>';
 }
 
 function pagina_config_mensagem_geral_posts($args)
 {
-    ?>
-    <p>Escolha quais os posts que serão aplicados as Tags do Tematres</p>
-    <?php
+    echo '<p>';
+    echo __("Choose the post types where the Tematres Tags will be applied",'tematres-wp-integration');
+    echo '</p>';
 }
 
 function pagina_config_renderizar_campos($args)
@@ -264,6 +309,7 @@ function pagina_config_renderizar_campos($args)
                 } else {
 
                     // O CAMPO NORMAL É RENDERIZADO AQUI
+                    // The common input is rendered here
 
                     //echo $prependStart . '<input type="' . $args['subtype'] . '" id="' . $args['id'] . '" "' . $args['required'] . '" ' . $step . ' ' . $max . ' ' . $min . ' name="' . $args['name'] . '" size="40" value="' . esc_attr($value) . '" />' . $prependEnd;
 
@@ -283,6 +329,10 @@ function pagina_config_renderizar_campos($args)
 add_action('admin_init', 'pagina_config_registrar_construir_campos');
 
 //--------------------------------------------------------------------- API do tematres
+
+/**
+ * DELETAR
+ */
 add_shortcode('shortcode_show_tags_tematres', 'show_tags_tematres');
 #Ex: [shortcode_show_tags_tematres] 
 function show_tags_tematres()
@@ -345,39 +395,40 @@ function show_tags_tematres()
 //--------------------------------------------------------------------- // Remover Categories and Tags (FORMA CORRETA)
 function wpdocs_register_private_taxonomy() {
     $args = array(
-        'label'        => __( 'Tags', 'textdomain' ),
+        'label'        => __( 'Tags', 'tematres-wp-integration' ),
         'public'       => false,
         'rewrite'      => false,
         'hierarchical' => true
     );
     
-    #escondendo a tag padrão do WP caso o Post seja selecionado no plugin
+    // escondendo a tag padrão do WP caso o Post seja selecionado no plugin
     $post_type = get_option('post_types')["post_types_checkbox_field_1"];
-    //var_dump($post_type);
+    
     $flag = False;
     foreach ($post_type as $post){
         if ($post == "post") $flag = True;
     }
     if ($flag) register_taxonomy( 'post_tag', 'post', $args );
 
-    //get_option('tematres_tag_name');
+    $custom_name = get_option("tematres_tag_name");
     $labels = array(
-        'name'                       => _x( get_option("tematres_tag_name"), 'taxonomy general name', 'textdomain' ),
-        'singular_name'              => _x( get_option("tematres_tag_name"), 'taxonomy singular name', 'textdomain' ),
-        'search_items'               => __( 'Search '.get_option("tematres_tag_name"), 'textdomain' ),
-        'popular_items'              => __( 'Popular Writers', 'textdomain' ),
-        'all_items'                  => __( 'All '.get_option("tematres_tag_name"), 'textdomain' ),
+        'name'                       => _x( get_option("tematres_tag_name"), 'taxonomy general name', 'tematres-wp-integration' ),
+        'singular_name'              => _x( get_option("tematres_tag_name"), 'taxonomy singular name', 'tematres-wp-integration' ),
+        'search_items'               => sprintf( esc_attr__( 'Search %s', 'tematres-wp-integration' ), $custom_name),
+        'popular_items'              => sprintf( esc_attr__( 'Popular %s', 'tematres-wp-integration' ), $custom_name),
+        'all_items'                  => sprintf( esc_attr__( 'All %s', 'tematres-wp-integration' ), $custom_name),
         'parent_item'                => null,
         'parent_item_colon'          => null,
-        'edit_item'                  => __( 'Edit '.get_option("tematres_tag_name"), 'textdomain' ),
-        'update_item'                => __( 'Update '.get_option("tematres_tag_name"), 'textdomain' ),
-        'add_new_item'               => __( 'Add New '.get_option("tematres_tag_name"), 'textdomain' ),
-        'new_item_name'              => __( 'New '.get_option("tematres_tag_name").' Name', 'textdomain' ),
-        'separate_items_with_commas' => __( 'Separate '.get_option("tematres_tag_name").' with commas', 'textdomain' ),
-        'add_or_remove_items'        => __( 'Add or remove '.get_option("tematres_tag_name"), 'textdomain' ),
-        'choose_from_most_used'      => __( 'Choose from the most used '.get_option("tematres_tag_name"), 'textdomain' ),
-        'not_found'                  => __( 'No '.get_option("tematres_tag_name").' found.', 'textdomain' ),
-        'menu_name'                  => __( get_option("tematres_tag_name"), 'textdomain' ),
+        'edit_item'                  => sprintf( esc_attr__( 'Edit %s', 'tematres-wp-integration' ), $custom_name),
+        'update_item'                => sprintf( esc_attr__( 'Update %s', 'tematres-wp-integration' ), $custom_name),
+        'add_new_item'               => sprintf( esc_attr__( 'Add New %s', 'tematres-wp-integration' ), $custom_name),
+        'new_item_name'              => sprintf( esc_attr__( 'New %s Name', 'tematres-wp-integration' ), $custom_name),
+        'separate_items_with_commas' => sprintf( esc_attr__( 'Separate %s with commas', 'tematres-wp-integration' ), $custom_name),
+        'add_or_remove_items'        => sprintf( esc_attr__( 'Add or remove %s', 'tematres-wp-integration' ), $custom_name),
+        'choose_from_most_used'      => sprintf( esc_attr__( 'Choose from the most used %s', 'tematres-wp-integration' ), $custom_name),
+        'not_found'                  => sprintf( esc_attr__( 'No %s found', 'tematres-wp-integration' ), $custom_name),
+        'all_items'                  => sprintf( esc_attr__( 'All %s', 'tematres-wp-integration' ), $custom_name),
+        'menu_name'                  => sprintf( esc_attr__( '%s', 'tematres-wp-integration' ), $custom_name),
     );
  
     $args = array(
@@ -414,7 +465,7 @@ add_action('admin_menu', 'my_remove_sub_menus');
 function rudr_add_new_tags_metabox()
 {
     $id = 'tematres-wp-integration_tag'; // it should be unique
-    $heading = 'Tags'; // meta box heading
+    $heading = 'Tematres Tags'; // meta box heading ---> alterar nome?
     $callback = 'rudr_metabox_content'; // the name of the callback function
 
     // $args = array(
@@ -494,8 +545,9 @@ function ajax_criar_tags(){
     
     // Caso exista, apenas avisa no console
     if ( $term !== 0 && $term !== null ) {
-        //echo __( $tag_escolhida . " post_tag exists!", "textdomain" );
-        echo ($tag_escolhida. ' já existe');
+        //echo __( $tag_escolhida . " post_tag exists!", "tematres-wp-integration" );
+        //echo ($tag_escolhida. ' já existe');
+        echo __($tag_escolhida. ' already exists.', 'tematres-wp-integration');
     } 
 
     // Caso contrário, cria o termo
@@ -506,7 +558,8 @@ function ajax_criar_tags(){
             array()
         );
 
-        echo ($tag_escolhida. ' inserida no Tags (Tematres-WP)');
+        //echo ($tag_escolhida. ' inserida no Tags (Tematres-WP)');
+        echo __($tag_escolhida. ' saved as Tematres Tags', 'tematres-wp-integration');
     }
     
     wp_die();
