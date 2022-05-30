@@ -141,7 +141,7 @@ function pagina_config_registrar_construir_campos()
         'id' => 'pagina_config_tematres_url',
         'name' => 'pagina_config_tematres_url',
         'required' => 'true',
-        'placeholder' => 'Insira uma URL',
+        'placeholder' => __('Insert URL','tematres-wp-integration'),
         'size' => 70,
         'get_options_list' => '',
         'value_type' => 'normal',
@@ -167,7 +167,7 @@ function pagina_config_registrar_construir_campos()
         'id' => 'tematres_tag_name',
         'name' => 'tematres_tag_name',
         'required' => 'true',
-        'placeholder' => 'Insira o nome da Tag',
+        'placeholder' => __('Insert Tag Name','tematres-wp-integration'),
         'size' => 70,
         'get_options_list' => '',
         'value_type' => 'normal',
@@ -250,13 +250,13 @@ function pagina_config_mensagem_geral_url($args)
 
     echo '<p><strong>';
     echo __('URL example:','tematres-wp-integration');
-    echo '</strong>';
+    echo ' </strong>';
     echo 'http://mystematres/vocab/services.php';
     echo '</p>';
     
     echo '<p><strong>';
     echo __('Currently, the saved URL is: ','tematres-wp-integration');
-    echo '</strong>';
+    echo ' </strong>';
     echo get_option('pagina_config_tematres_url');
     echo '</p>';
 
@@ -547,7 +547,7 @@ function ajax_criar_tags(){
     if ( $term !== 0 && $term !== null ) {
         //echo __( $tag_escolhida . " post_tag exists!", "tematres-wp-integration" );
         //echo ($tag_escolhida. ' já existe');
-        echo __($tag_escolhida. ' already exists.', 'tematres-wp-integration');
+        echo $tag_escolhida.' '. __('already exists.', 'tematres-wp-integration');
     } 
 
     // Caso contrário, cria o termo
@@ -559,7 +559,7 @@ function ajax_criar_tags(){
         );
 
         //echo ($tag_escolhida. ' inserida no Tags (Tematres-WP)');
-        echo __($tag_escolhida. ' saved as Tematres Tags', 'tematres-wp-integration');
+        echo $tag_escolhida.' '.__('saved as Tematres Tags', 'tematres-wp-integration');
     }
     
     wp_die();
@@ -579,3 +579,41 @@ function set_post_default_category( $post_id, $post, $update ) {
         
     }
 }
+
+/**
+ * Set Localization
+ * https://stackoverflow.com/questions/12638547/how-to-translate-a-wordpress-plugin-in-any-language
+ */
+
+// Localization
+add_action('init', 'localizationsample_init');
+function localizationsample_init() {
+    $path = dirname(plugin_basename( __FILE__ )) . '/languages/';
+
+    $loaded = load_plugin_textdomain( 'tematres-wp-integration', false, $path);
+    if ($_GET['page'] == basename(__FILE__) && !$loaded) {          
+        echo '<div class="error">Sample Localization: ' . __('Could not load the localization file: ' . $path, 'tematres-wp-integration') . '</div>';
+        return;
+    } 
+} 
+
+// Add Admin Menu 
+add_action('admin_menu','localizationsample_menu');
+function localizationsample_menu() { 
+    add_options_page(
+        'Localization Demo',            // admin page title
+        'Localization Demo',            // menu item name
+        'manage_options',               // access privilege
+        basename(__FILE__),                         // page slug for the option page
+        'localization_demo_adminpanel'  // call-back function name
+    );
+}
+
+function localization_demo_adminpanel() {
+    echo '<div class="wrap"><div id="icon-themes" class="icon32"></div>';
+    echo '<h2>' . __('Hi there!', 'tematres-wp-integration') . '</h2>'; 
+    echo '<p>';
+    _e('Hello world!', 'tematres-wp-integration');
+    echo '</p>';
+    echo '</div>'; // end of wrap
+} 

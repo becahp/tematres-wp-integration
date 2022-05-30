@@ -3,11 +3,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tematres WP\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-28 00:56+0000\n"
+"POT-Creation-Date: 2022-05-30 13:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: \n"
-"Language: \n"
+"Last-Translator: Rebeca Moura <rebecamoura@ibict.br>\n"
+"Language-Team: Rebeca Moura <rebecamoura@ibict.br>\n"
+"Language: en_US\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -15,14 +15,6 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.6.2; wp-5.8.1\n"
 "X-Domain: tematres-wp-integration"
-
-#: functions.php:550
-msgid " already exists."
-msgstr ""
-
-#: functions.php:562
-msgid " saved as Tematres Tags"
-msgstr ""
 
 #: functions.php:431
 #, php-format
@@ -42,6 +34,10 @@ msgstr ""
 #: functions.php:419 functions.php:430
 #, php-format
 msgid "All %s"
+msgstr ""
+
+#: functions.php:550
+msgid "already exists."
 msgstr ""
 
 #: functions.php:428
@@ -71,7 +67,15 @@ msgid "Empty search term"
 msgstr ""
 
 #: js/tematres-wp.js:120
-msgid "ERROR! Response: "
+msgid "ERROR! Response:"
+msgstr ""
+
+#: functions.php:616
+msgid "Hello world!"
+msgstr ""
+
+#: functions.php:614
+msgid "Hi there!"
 msgstr ""
 
 #. URI of the plugin
@@ -79,8 +83,16 @@ msgstr ""
 msgid "https://github.com/becahp"
 msgstr ""
 
+#: functions.php:170
+msgid "Insert Tag Name"
+msgstr ""
+
 #: functions.php:185
 msgid "Insert Tag Name:"
+msgstr ""
+
+#: functions.php:144
+msgid "Insert URL"
 msgstr ""
 
 #: functions-api.php:22
@@ -114,6 +126,10 @@ msgstr ""
 msgid "Rebeca Moura e Lucas Rodrigues"
 msgstr ""
 
+#: functions.php:562
+msgid "saved as Tematres Tags"
+msgstr ""
+
 #: functions.php:417
 #, php-format
 msgid "Search %s"
@@ -133,7 +149,7 @@ msgid "Separate %s with commas"
 msgstr ""
 
 #: js/tematres-wp.js:116
-msgid "Sucess! Response: "
+msgid "Sucess! Response:"
 msgstr ""
 
 #: functions.php:179

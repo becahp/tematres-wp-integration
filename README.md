@@ -25,6 +25,7 @@ O QUE FALTA FAZER
 [ ] Remover os comentários "rabicho de código"
 [X] Esconder da interface do edit
 [ ] Adicionar opção caso a tematres_tag_name não estiver setada
+[X] forçar Wp a utilizar a língua inglesa do Plugin (ou pt_br)?
 
 Adicionar observação:
 Para retornar as tags no frontend de um post, que usa por exemplo a função ``get_the_tag_list`` (como o Tema Twenty Twenty One) do wordpress, é necessário alterar manualmente os arquivos de template do tema, para não chamar essa função, uma vez que ela excluisvamente chama tags do tipo `post_tag`, que são padrão do WP.

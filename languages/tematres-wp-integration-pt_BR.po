@@ -3,9 +3,9 @@ msgstr ""
 "Project-Id-Version: Tematres WP\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-28 00:49+0000\n"
-"PO-Revision-Date: 2022-05-28 00:57+0000\n"
-"Last-Translator: \n"
-"Language-Team: Português do Brasil\n"
+"PO-Revision-Date: 2022-05-30 13:50+0000\n"
+"Last-Translator: Rebeca Moura <rebecamoura@ibict.br>\n"
+"Language-Team: Portuguese (Brazil)\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
@@ -14,14 +14,6 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.6.2; wp-5.8.1\n"
 "X-Domain: tematres-wp-integration"
-
-#: functions.php:550
-msgid " already exists."
-msgstr "já existe."
-
-#: functions.php:562
-msgid " saved as Tematres Tags"
-msgstr "salvo como Tag Tematres"
 
 #: functions.php:431
 #, php-format
@@ -42,6 +34,11 @@ msgstr "Adicionar ou remover %s"
 #, php-format
 msgid "All %s"
 msgstr "Todos(as) %s"
+
+#: functions.php:550
+#| msgid " already exists."
+msgid "already exists."
+msgstr "já existe."
 
 #: functions.php:428
 #, php-format
@@ -70,17 +67,34 @@ msgid "Empty search term"
 msgstr "Termo vazio"
 
 #: js/tematres-wp.js:120
-msgid "ERROR! Response: "
+#| msgid "ERROR! Response: "
+msgid "ERROR! Response:"
 msgstr "ERROR! Resposta: "
+
+#: functions.php:616
+msgid "Hello world!"
+msgstr "Olá Mundo!!!!!"
+
+#: functions.php:614
+msgid "Hi there!"
+msgstr "Olá!!!!!!"
 
 #. URI of the plugin
 #. Author URI of the plugin
 msgid "https://github.com/becahp"
 msgstr "https://github.com/becahp"
 
+#: functions.php:170
+msgid "Insert Tag Name"
+msgstr "Insira o Nome da Tag"
+
 #: functions.php:185
 msgid "Insert Tag Name:"
 msgstr "Insira o Nome da Tag"
+
+#: functions.php:144
+msgid "Insert URL"
+msgstr "Insira uma URL"
 
 #: functions-api.php:22
 msgid "It's alive!"
@@ -113,6 +127,11 @@ msgstr "Tipos de posts onde serão aplicado as Tags Tematres"
 msgid "Rebeca Moura e Lucas Rodrigues"
 msgstr "Rebeca Moura and Lucas Rodrigues"
 
+#: functions.php:562
+#| msgid " saved as Tematres Tags"
+msgid "saved as Tematres Tags"
+msgstr "salvo como Tag Tematres"
+
 #: functions.php:417
 #, php-format
 msgid "Search %s"
@@ -132,7 +151,8 @@ msgid "Separate %s with commas"
 msgstr "Separe %s com vírgulas"
 
 #: js/tematres-wp.js:116
-msgid "Sucess! Response: "
+#| msgid "Sucess! Response: "
+msgid "Sucess! Response:"
 msgstr "Sucesso! Resposta:"
 
 #: functions.php:179

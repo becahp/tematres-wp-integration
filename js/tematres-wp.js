@@ -113,11 +113,11 @@ jQuery( document ).ready( function ( $ ) {
         },
         success: function ( response ) {
           //console.log( 'recebi ' + response );
-          console.log( __( 'Sucess! Response: ', 'tematres-wp-integration' ) + response );
+          console.log( __( 'Sucess! Response:', 'tematres-wp-integration' ) + ' ' + response );
         },
         error: function ( response ) {
           //console.log( 'ERRO ' + response );
-          console.log( __( 'ERROR! Response: ', 'tematres-wp-integration' ) + response );
+          console.log( __( 'ERROR! Response:', 'tematres-wp-integration' ) + ' ' + response );
         }
       } );
     } );
