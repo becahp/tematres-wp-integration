@@ -29,3 +29,13 @@ O QUE FALTA FAZER
 
 Adicionar observação:
 Para retornar as tags no frontend de um post, que usa por exemplo a função ``get_the_tag_list`` (como o Tema Twenty Twenty One) do wordpress, é necessário alterar manualmente os arquivos de template do tema, para não chamar essa função, uma vez que ela excluisvamente chama tags do tipo `post_tag`, que são padrão do WP.
+
+Exemplo de uso no tema Twenty Twenty One:
+
+```php
+    if ( function_exists( 'get_the_tag_list_tematres_wp' ) ) {
+        $tags_list = get_the_tag_list_tematres_wp( '', __( ' ', 'twentytwentyone' ) );
+    } else {
+        $tags_list = get_the_tag_list( '', __( ' ', 'twentytwentyone' ) );
+    }
+```

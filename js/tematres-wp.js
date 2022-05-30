@@ -80,10 +80,10 @@ jQuery( document ).ready( function ( $ ) {
       width: '100%',
       language: {
         inputTooShort: function ( ) {
-          return __( 'Please write more', 'tematres-wp-integration' );
+          return my_ajax_object.texto_escreva_mais;
         },
         searching: function ( ) {
-          return __( 'Searching...', 'tematres-wp-integration' );
+          return my_ajax_object.texto_pesquisa;
         },
       },
       ajax: {
@@ -112,12 +112,12 @@ jQuery( document ).ready( function ( $ ) {
           tag: data.text,
         },
         success: function ( response ) {
-          //console.log( 'recebi ' + response );
-          console.log( __( 'Sucess! Response:', 'tematres-wp-integration' ) + ' ' + response );
+          console.log( 'recebi ' + response );
+          //console.log( __( 'Sucess! Response:', 'tematres-wp-integration' ) + ' ' + response );
         },
         error: function ( response ) {
-          //console.log( 'ERRO ' + response );
-          console.log( __( 'ERROR! Response:', 'tematres-wp-integration' ) + ' ' + response );
+          console.log( 'ERRO ' + response );
+          //console.log( __( 'ERROR! Response:', 'tematres-wp-integration' ) + ' ' + response );
         }
       } );
     } );

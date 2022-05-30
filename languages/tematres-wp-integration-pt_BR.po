@@ -3,9 +3,9 @@ msgstr ""
 "Project-Id-Version: Tematres WP\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-28 00:49+0000\n"
-"PO-Revision-Date: 2022-05-30 13:50+0000\n"
-"Last-Translator: Rebeca Moura <rebecamoura@ibict.br>\n"
-"Language-Team: Portuguese (Brazil)\n"
+"PO-Revision-Date: 2022-05-30 18:40+0000\n"
+"Last-Translator: \n"
+"Language-Team: Português do Brasil\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
@@ -15,49 +15,49 @@ msgstr ""
 "X-Loco-Version: 2.6.2; wp-5.8.1\n"
 "X-Domain: tematres-wp-integration"
 
-#: functions.php:431
+#: functions.php:447
 #, php-format
 msgid "%s"
 msgstr "%s"
 
-#: functions.php:424
+#: functions.php:440
 #, php-format
 msgid "Add New %s"
 msgstr "Adicionar Novo %s"
 
-#: functions.php:427
+#: functions.php:443
 #, php-format
 msgid "Add or remove %s"
 msgstr "Adicionar ou remover %s"
 
-#: functions.php:419 functions.php:430
+#: functions.php:435 functions.php:446
 #, php-format
 msgid "All %s"
 msgstr "Todos(as) %s"
 
-#: functions.php:550
+#: functions.php:566
 #| msgid " already exists."
 msgid "already exists."
 msgstr "já existe."
 
-#: functions.php:428
+#: functions.php:444
 #, php-format
 msgid "Choose from the most used %s"
 msgstr "Selecione a partir das %s mais usadas"
 
-#: functions.php:278
+#: functions.php:294
 msgid "Choose the post types where the Tematres Tags will be applied"
 msgstr "Selecione os tipos de posts onde serão aplicado as Tags"
 
-#: functions.php:258
+#: functions.php:274
 msgid "Currently, the saved URL is: "
 msgstr "A URL salva no momento é:"
 
-#: functions.php:271
+#: functions.php:287
 msgid "Define the Tag Name (this doesn't affect the term slug)"
 msgstr "Defina o Nome da Tag (isso não afeta o slug do termo)"
 
-#: functions.php:422
+#: functions.php:438
 #, php-format
 msgid "Edit %s"
 msgstr "Editar %s"
@@ -66,16 +66,11 @@ msgstr "Editar %s"
 msgid "Empty search term"
 msgstr "Termo vazio"
 
-#: js/tematres-wp.js:120
-#| msgid "ERROR! Response: "
-msgid "ERROR! Response:"
-msgstr "ERROR! Resposta: "
-
-#: functions.php:616
+#: functions.php:632
 msgid "Hello world!"
 msgstr "Olá Mundo!!!!!"
 
-#: functions.php:614
+#: functions.php:630
 msgid "Hi there!"
 msgstr "Olá!!!!!!"
 
@@ -84,15 +79,15 @@ msgstr "Olá!!!!!!"
 msgid "https://github.com/becahp"
 msgstr "https://github.com/becahp"
 
-#: functions.php:170
+#: functions.php:186
 msgid "Insert Tag Name"
 msgstr "Insira o Nome da Tag"
 
-#: functions.php:185
+#: functions.php:201
 msgid "Insert Tag Name:"
 msgstr "Insira o Nome da Tag"
 
-#: functions.php:144
+#: functions.php:160
 msgid "Insert URL"
 msgstr "Insira uma URL"
 
@@ -100,26 +95,26 @@ msgstr "Insira uma URL"
 msgid "It's alive!"
 msgstr "Está funcionando!"
 
-#: functions.php:425
+#: functions.php:441
 #, php-format
 msgid "New %s Name"
 msgstr "Novo %s Nome"
 
-#: functions.php:429
+#: functions.php:445
 #, php-format
 msgid "No %s found"
 msgstr "Nenhum(a) %s encontrado(a)"
 
-#: js/tematres-wp.js:83
+#: functions.php:46 functions.php:72
 msgid "Please write more"
-msgstr "Por favor, escreva mais"
+msgstr "Por favor escreva mais"
 
-#: functions.php:418
+#: functions.php:434
 #, php-format
 msgid "Popular %s"
 msgstr "%s populares"
 
-#: functions.php:200
+#: functions.php:216
 msgid "Post types where Tematres Tags will be applied"
 msgstr "Tipos de posts onde serão aplicado as Tags Tematres"
 
@@ -127,49 +122,44 @@ msgstr "Tipos de posts onde serão aplicado as Tags Tematres"
 msgid "Rebeca Moura e Lucas Rodrigues"
 msgstr "Rebeca Moura and Lucas Rodrigues"
 
-#: functions.php:562
+#: functions.php:578
 #| msgid " saved as Tematres Tags"
 msgid "saved as Tematres Tags"
 msgstr "salvo como Tag Tematres"
 
-#: functions.php:417
+#: functions.php:433
 #, php-format
 msgid "Search %s"
 msgstr "Pesquisar %s"
 
-#: js/tematres-wp.js:86
+#: functions.php:47 functions.php:73
 msgid "Searching..."
-msgstr "Procurando..."
+msgstr "Pesquisando..."
 
-#: functions.php:206
+#: functions.php:222
 msgid "Select Post types:"
 msgstr "Selecione os tipos de posts:"
 
-#: functions.php:426
+#: functions.php:442
 #, php-format
 msgid "Separate %s with commas"
 msgstr "Separe %s com vírgulas"
 
-#: js/tematres-wp.js:116
-#| msgid "Sucess! Response: "
-msgid "Sucess! Response:"
-msgstr "Sucesso! Resposta:"
-
-#: functions.php:179
+#: functions.php:195
 msgid "Tag Name"
 msgstr "Nome da Tag"
 
-#: functions.php:398
+#: functions.php:414
 msgid "Tags"
 msgstr "Tags"
 
 #. Title to be displayed on the administration page
-#: functions.php:129
+#: functions.php:145
 msgid "Tematres URL"
 msgstr "URL do Tematres"
 
 #. Name of the plugin
-#: functions.php:71 functions.php:72
+#: functions.php:87 functions.php:88
 msgid "Tematres WP"
 msgstr "Tematres WP"
 
@@ -177,7 +167,7 @@ msgstr "Tematres WP"
 msgid "Tematres WP plugin settings"
 msgstr "Configurações do plugin Tematres WP"
 
-#: functions.php:99
+#: functions.php:115
 msgid ""
 "There was an error adding this setting. Please try again. If this persists, "
 "shoot us an email."
@@ -185,17 +175,17 @@ msgstr ""
 "Ocorreu um erro ao adicionar essa configuração. Por favor tente novamente. "
 "Se o erro persistir, nos mande um email."
 
-#: functions.php:248
+#: functions.php:264
 msgid "This setting applies to all features of the Tematres WP plugin."
 msgstr ""
 "Essa configuração se aplica à todas as funcionalidades do plugin Tematres WP."
 
-#: functions.php:423
+#: functions.php:439
 #, php-format
 msgid "Update %s"
 msgstr "Atualizar %s"
 
-#: functions.php:252
+#: functions.php:268
 msgid "URL example:"
 msgstr "Exemplo de URL:"
 

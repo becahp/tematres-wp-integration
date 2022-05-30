@@ -39,7 +39,14 @@ function tematres_wp_style_scripts()
     wp_enqueue_style('css_select2');
 
     wp_enqueue_script('js_tematres_wp', TEMATRES_WP_JS_URL . 'tematres-wp.js', array('jquery', 'js_select2'), $ver);
-    wp_localize_script('js_tematres_wp', 'my_ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
+    wp_localize_script(
+        'js_tematres_wp', 
+        'my_ajax_object', array(
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'texto_escreva_mais' => __( 'Please write more', 'tematres-wp-integration' ),
+            'texto_pesquisa' => __( 'Searching...', 'tematres-wp-integration' ),
+        )
+    );
 
     wp_enqueue_script('js_select2', TEMATRES_WP_JS_URL . 'select2.min.js', array(), $ver);
 }
@@ -56,7 +63,16 @@ function tematres_wp_style_scripts_admin()
     wp_enqueue_style('css_tematres_wp');
 
     wp_enqueue_script('js_tematres_wp', TEMATRES_WP_JS_URL . 'tematres-wp.js', array(), $ver);
-    wp_localize_script('js_tematres_wp', 'my_ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
+    //wp_localize_script('js_tematres_wp', 'my_ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
+
+    wp_localize_script(
+        'js_tematres_wp', 
+        'my_ajax_object', array(
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'texto_escreva_mais' => __( 'Please write more', 'tematres-wp-integration' ),
+            'texto_pesquisa' => __( 'Searching...', 'tematres-wp-integration' ),
+        )
+    );
 
     //wp_enqueue_script('js_select2', TEMATRES_WP_JS_URL . 'select2.min.js', array(), $ver);
 }
@@ -430,7 +446,7 @@ function wpdocs_register_private_taxonomy() {
         'all_items'                  => sprintf( esc_attr__( 'All %s', 'tematres-wp-integration' ), $custom_name),
         'menu_name'                  => sprintf( esc_attr__( '%s', 'tematres-wp-integration' ), $custom_name),
     );
- 
+
     $args = array(
         'hierarchical'          => false,
         'labels'                => $labels,
@@ -465,7 +481,7 @@ add_action('admin_menu', 'my_remove_sub_menus');
 function rudr_add_new_tags_metabox()
 {
     $id = 'tematres-wp-integration_tag'; // it should be unique
-    $heading = 'Tematres Tags'; // meta box heading ---> alterar nome?
+    $heading = get_option("tematres_tag_name"); // meta box heading ---> alterar nome?
     $callback = 'rudr_metabox_content'; // the name of the callback function
 
     // $args = array(
@@ -598,7 +614,7 @@ function localizationsample_init() {
 } 
 
 // Add Admin Menu 
-add_action('admin_menu','localizationsample_menu');
+//add_action('admin_menu','localizationsample_menu');
 function localizationsample_menu() { 
     add_options_page(
         'Localization Demo',            // admin page title
@@ -617,3 +633,28 @@ function localization_demo_adminpanel() {
     echo '</p>';
     echo '</div>'; // end of wrap
 } 
+
+/**
+ * Function to render the created tags on the templates
+ */
+function get_the_tag_list_tematres_wp( $before = '', $sep = '', $after = '', $post_id = 0 ) {
+	$tag_list = get_the_term_list( $post_id, 'tematres_wp', $before, $sep, $after );
+
+	/**
+	 * Filters the tags list for a given post.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $tag_list List of tags.
+	 * @param string $before   String to use before the tags.
+	 * @param string $sep      String to use between the tags.
+	 * @param string $after    String to use after the tags.
+	 * @param int    $post_id  Post ID.
+	 */
+	return apply_filters( 'the_tags', $tag_list, $before, $sep, $after, $post_id );
+}
+
+
+function has_tag_tematres_wp( $tag = '', $post = null ) {
+	return has_term( $tag, 'tematres_wp', $post );
+}
