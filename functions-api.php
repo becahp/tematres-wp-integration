@@ -27,22 +27,20 @@ function tematres_wp_teste() {
 function tematres_wp_busca($data) {
     $termo = $data['q'];
 
-    //$termo = $_POST['termo'];
     if (empty($termo)) {
         echo __('Empty search term', 'tematres-wp-integration');
     }
     else {
         $urlTematres = get_option('pagina_config_tematres_url');
-        //echo "<p>Query de busca é \"$termo\"</p>";
+        
         $urlBusca = $urlTematres . "?task=search&arg=" . strtolower($termo);
-        //echo "<p>URL de busca é: $urlBusca</p>";
+        
         $xml = simplexml_load_file($urlBusca)->result;
 
         if (empty($xml)) {
             return array();
         }
 
-        //var_dump($xml);
         //carrega o arquivo XML e retornando um Array
         $termos = array();
 
@@ -50,10 +48,8 @@ function tematres_wp_busca($data) {
             array_push($termos, (string)($item->string));
         }
 
-        //var_dump($termos);
         $data = array();
         for ($i = 0;$i < count($termos);++$i) {
-            //https://makitweb.com/loading-data-remotely-in-select2-with-ajax/
             $data[] = array(
                 "id" => $termos[$i],
                 "text" => $termos[$i]
@@ -61,9 +57,5 @@ function tematres_wp_busca($data) {
         }
 
         return $data;
-        //return json_encode($data);
-        //return $termos;
-        //wp_send_json_success( $termos );
-        //https://localhost/wp-json/tematres-wp-integration/v1/termo/teste
     }
 }
