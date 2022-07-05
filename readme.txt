@@ -22,7 +22,7 @@ Install and activate the plugin. Go to the "Tematres WP" menu in the panel and c
 
 = FrontEnd Observation =
 
-To return the tags in the frontend of a post which uses, for example, the ``get_the_tag_list`` function (as the Twenty Twenty One Theme) of WordPress, it is necessary to manually change the theme's template files, to not call this function, since it exclusively calls tags of type `post_tag`, which are standard in WP. So we created the functions `has_tag_thematres_wp` and `get_the_tag_list_tematres_wp` that look for the tag created by the plugin.
+To return the tags in the frontend of a post which uses, for example, the ``get_the_tag_list`` function (as the Twenty Twenty One Theme) of WordPress, it is necessary to manually change the theme's template files, to not call this function, since it exclusively calls tags of type `post_tag`, which are standard in WP. So we created the functions `has_tag_thematres_wp` and `tmwpi_get_the_tag_list` that look for the tag created by the plugin.
 
 
 Usage example in Twenty Twenty One theme:
@@ -30,8 +30,8 @@ Usage example in Twenty Twenty One theme:
 ```php
     if ( has_category() || has_tag() || has_tag_tematres_wp() ) {
         ...
-        if ( function_exists( 'get_the_tag_list_tematres_wp' ) ) {
-            $tags_list = get_the_tag_list_tematres_wp( '', __( ' ', 'twentytwentyone' ) );
+        if ( function_exists( 'tmwpi_get_the_tag_list' ) ) {
+            $tags_list = tmwpi_get_the_tag_list( '', __( ' ', 'twentytwentyone' ) );
         } else {
             $tags_list = get_the_tag_list( '', __( ' ', 'twentytwentyone' ) );
         }

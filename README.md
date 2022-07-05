@@ -14,16 +14,16 @@ Install and activate the plugin. Go to the "Tematres WP" menu in the panel and c
 
 ### FrontEnd Observation
 
-To return the tags in the frontend of a post which uses, for example, the ``get_the_tag_list`` function (as the Twenty Twenty One Theme) of WordPress, it is necessary to manually change the theme's template files, to not call this function, since it exclusively calls tags of type `post_tag`, which are standard in WP. So we created the functions `has_tag_thematres_wp` and `get_the_tag_list_tematres_wp` that look for the tag created by the plugin.
+To return the tags in the frontend of a post which uses, for example, the ``get_the_tag_list`` function (as the Twenty Twenty One Theme) of WordPress, it is necessary to manually change the theme's template files, to not call this function, since it exclusively calls tags of type `post_tag`, which are standard in WP. So we created the functions `has_tag_thematres_wp` and `tmwpi_get_the_tag_list` that look for the tag created by the plugin.
 
 
 Usage example in Twenty Twenty One theme:
 
 ```php
-    if ( has_category() || has_tag() || has_tag_tematres_wp() ) {
+    if ( has_category() || has_tag() || tmwpi_has_tag() ) {
         ...
-        if ( function_exists( 'get_the_tag_list_tematres_wp' ) ) {
-            $tags_list = get_the_tag_list_tematres_wp( '', __( ' ', 'twentytwentyone' ) );
+        if ( function_exists( 'tmwpi_get_the_tag_list' ) ) {
+            $tags_list = tmwpi_get_the_tag_list( '', __( ' ', 'twentytwentyone' ) );
         } else {
             $tags_list = get_the_tag_list( '', __( ' ', 'twentytwentyone' ) );
         }
@@ -44,18 +44,25 @@ Instale e ative o plugin. Vá no menu "Tematres Wp" no painel e configure os req
 - Post onde as tags serão aplicadas
 
 ## Observação para o Frontend:
-Para retornar as tags no frontend de um post que usa, por exemplo, a função ``get_the_tag_list`` (como o Tema Twenty Twenty One) do wordpress, é necessário alterar manualmente os arquivos de template do tema, para não chamar essa função, uma vez que ela excluisvamente chama tags do tipo `post_tag`, que são padrão do WP. Assim, criamos `has_tag_tematres_wp` e `get_the_tag_list_tematres_wp` que buscam a tag criada pelo plugin.
+Para retornar as tags no frontend de um post que usa, por exemplo, a função ``get_the_tag_list`` (como o Tema Twenty Twenty One) do wordpress, é necessário alterar manualmente os arquivos de template do tema, para não chamar essa função, uma vez que ela excluisvamente chama tags do tipo `post_tag`, que são padrão do WP. Assim, criamos `tmwpi_has_tag` e `tmwpi_get_the_tag_list` que buscam a tag criada pelo plugin.
 
 Exemplo de uso no tema Twenty Twenty One:
 
 ```php
-    if ( has_category() || has_tag() || has_tag_tematres_wp() ) {
+    if ( has_category() || has_tag() || tmwpi_has_tag() ) {
         ...
-        if ( function_exists( 'get_the_tag_list_tematres_wp' ) ) {
-            $tags_list = get_the_tag_list_tematres_wp( '', __( ' ', 'twentytwentyone' ) );
+        if ( function_exists( 'tmwpi_get_the_tag_list' ) ) {
+            $tags_list = tmwpi_get_the_tag_list( '', __( ' ', 'twentytwentyone' ) );
         } else {
             $tags_list = get_the_tag_list( '', __( ' ', 'twentytwentyone' ) );
         }
         ...
     }
 ```
+
+## To do
+
+- [X] Tested Up To Value is Out of Date, Invalid, or Missing
+- [ ] Data Must be Sanitized, Escaped, and Validated
+- [ ] Variables and options must be escaped when echo'd
+- [X] Generic function/class/define/namespace names
