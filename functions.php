@@ -325,7 +325,7 @@ function tmwpi_pagina_config_renderizar_campos($args)
 //--------------------------------------------------------------------- API do tematres
 
 add_shortcode('tmwpi_shortcode_show_tags_tematres', 'tmwpi_show_tags_tematres');
-// Ex: [shortcode_tmwpi_show_tags_tematres] 
+// Ex: [tmwpi_shortcode_show_tags_tematres] 
 function tmwpi_show_tags_tematres()
 {
     ?>
@@ -474,7 +474,7 @@ function tmwpi_metabox_content($post)
 }
 
 add_shortcode('tmwpi_shortcode_campo_seletor_tags', 'tmwpi_campo_seletor_tags');
-// Ex: [shortcode_tmwpi_campo_seletor_tags div_id="taxonomy-post_tag" select_id="escolha_tags" ]
+// Ex: [tmwpi_shortcode_campo_seletor_tags div_id="taxonomy-post_tag" select_id="escolha_tags" ]
 function tmwpi_campo_seletor_tags($params)
 {
     $var = shortcode_atts([
@@ -482,11 +482,11 @@ function tmwpi_campo_seletor_tags($params)
         'select_id' => 'escolha_tags',
     ], $params);
 
-    echo '<div id="' . $var['div_id'] . '" class="categorydiv">';
+    // echo '<div id="' . $var['div_id'] . '" class="categorydiv">';
     echo '<select id="' . $var['select_id'] . '" class="tematres-wp-integration-escolhas" name="escolha_tags[]" multiple="multiple">';
     echo '<option value="">Selecione as Tags</option>';
     echo '</select>';
-    echo '</div>';
+    // echo '</div>';
 }
 
 /*
