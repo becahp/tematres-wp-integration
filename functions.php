@@ -39,9 +39,12 @@ function tmwpi_tematres_wp_style_scripts()
     wp_enqueue_style('css_select2');
 
     wp_enqueue_script('js_tematres_wp', TEMATRES_WP_JS_URL . 'tematres-wp.js', array('jquery', 'js_select2'), $ver);
+
+    wp_enqueue_script('js_select2', TEMATRES_WP_JS_URL . 'select2.min.js', array(), $ver);
+    
     wp_localize_script(
         'js_tematres_wp',
-        'my_ajax_object',
+        'tmwpi_my_ajax_object',
         array(
             'ajax_url' => admin_url('admin-ajax.php'),
             'texto_escreva_mais' => __('Please write more', 'tematres-wp-integration'),
@@ -49,7 +52,6 @@ function tmwpi_tematres_wp_style_scripts()
         )
     );
 
-    wp_enqueue_script('js_select2', TEMATRES_WP_JS_URL . 'select2.min.js', array(), $ver);
 }
 add_action('wp_enqueue_scripts', 'tmwpi_tematres_wp_style_scripts');
 
@@ -66,7 +68,7 @@ function tmwpi_tematres_wp_style_scripts_admin()
     wp_enqueue_script('js_tematres_wp', TEMATRES_WP_JS_URL . 'tematres-wp.js', array(), $ver);
     wp_localize_script(
         'js_tematres_wp',
-        'my_ajax_object',
+        'tmwpi_my_ajax_object',
         array(
             'ajax_url' => admin_url('admin-ajax.php'),
             'texto_escreva_mais' => __('Please write more', 'tematres-wp-integration'),
@@ -416,7 +418,7 @@ function tmwpi_register_private_taxonomy()
     $args = array(
         'hierarchical'          => false,
         'labels'                => $labels,
-        'show_ui'               => false,
+        'show_ui'               => true,
         //'show_in_nav_menus'     => false,
         //'show_in_menu'          => false,
         'show_in_quick_edit'    => false,
@@ -482,11 +484,11 @@ function tmwpi_campo_seletor_tags($params)
         'select_id' => 'escolha_tags',
     ], $params);
 
-    // echo '<div id="' . $var['div_id'] . '" class="categorydiv">';
+    echo '<div id="' . $var['div_id'] . '" class="categorydiv">';
     echo '<select id="' . $var['select_id'] . '" class="tematres-wp-integration-escolhas" name="escolha_tags[]" multiple="multiple">';
     echo '<option value="">Selecione as Tags</option>';
     echo '</select>';
-    // echo '</div>';
+    echo '</div>';
 }
 
 /*

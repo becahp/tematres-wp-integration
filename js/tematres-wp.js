@@ -13,10 +13,10 @@ jQuery(document).ready(function ($) {
       width: '100%',
       language: {
         inputTooShort: function () {
-          return my_ajax_object.texto_escreva_mais;
+          return tmwpi_my_ajax_object.texto_escreva_mais;
         },
         searching: function () {
-          return my_ajax_object.texto_pesquisa;
+          return tmwpi_my_ajax_object.texto_pesquisa;
         },
       },
       ajax: {
@@ -37,7 +37,7 @@ jQuery(document).ready(function ($) {
       //chamar a função de salvar a tag no WP core
       $.ajax({
         type: 'POST',
-        url: my_ajax_object.ajax_url,
+        url: tmwpi_my_ajax_object.ajax_url,
         data: {
           action: 'tmwpi_ajax_criar_tags',
           tag: data.text,
