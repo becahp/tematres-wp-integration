@@ -485,7 +485,7 @@ function tmwpi_campo_seletor_tags($params)
     ], $params);
 
     echo '<div id="' . $var['div_id'] . '" class="categorydiv">';
-    echo '<select id="' . $var['select_id'] . '" class="tematres-wp-integration-escolhas" name="escolha_tags[]" multiple="multiple">';
+    echo '<select id="' . $var['select_id'] . '" class="tematres-wp-integration-escolhas" name="'. $var['select_id'] .'[]" multiple="multiple">';
     echo '<option value="">Selecione as Tags</option>';
     echo '</select>';
     echo '</div>';
