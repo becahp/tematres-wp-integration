@@ -41,17 +41,17 @@ function tmwpi_tematres_wp_style_scripts()
     wp_enqueue_script('js_tematres_wp', TEMATRES_WP_JS_URL . 'tematres-wp.js', array('jquery', 'js_select2'), $ver);
 
     wp_enqueue_script('js_select2', TEMATRES_WP_JS_URL . 'select2.min.js', array(), $ver);
-    
+
     wp_localize_script(
         'js_tematres_wp',
         'tmwpi_my_ajax_object',
         array(
             'ajax_url' => admin_url('admin-ajax.php'),
+            'home_url' => home_url(),
             'texto_escreva_mais' => __('Please write more', 'tematres-wp-integration'),
             'texto_pesquisa' => __('Searching...', 'tematres-wp-integration'),
         )
     );
-
 }
 add_action('wp_enqueue_scripts', 'tmwpi_tematres_wp_style_scripts');
 
@@ -335,7 +335,7 @@ function tmwpi_show_tags_tematres()
         <div>
             <label for="field-name"> Informe o Termo:</label>
             <?php
-            $termo = $_POST['termo'];
+            $termo = sanitize_text_field($_POST['termo']);
             if (empty($termo)) {
                 echo "<input type=\"text\" name=\"termo\" id=\"termo\" minlength=\"2\" placeholder=\"laranja\" required />";
             } else {
@@ -351,7 +351,7 @@ function tmwpi_show_tags_tematres()
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // collect value of input field
-        $termo = $_POST['termo'];
+        $termo = sanitize_text_field($_POST['termo']);
         if (empty($termo)) {
             echo "Termo vazio";
         } else {
@@ -485,7 +485,7 @@ function tmwpi_campo_seletor_tags($params)
     ], $params);
 
     echo '<div id="' . $var['div_id'] . '" class="categorydiv">';
-    echo '<select id="' . $var['select_id'] . '" class="tematres-wp-integration-escolhas" name="'. $var['select_id'] .'[]" multiple="multiple">';
+    echo '<select id="' . $var['select_id'] . '" class="tematres-wp-integration-escolhas" name="' . $var['select_id'] . '[]" multiple="multiple">';
     echo '<option value="">Selecione as Tags</option>';
     echo '</select>';
     echo '</div>';
@@ -499,7 +499,8 @@ function tmwpi_campo_seletor_tags($params)
 function tmwpi_ajax_criar_tags()
 {
 
-    $tag_escolhida = (isset($_POST['tag'])) ? $_POST['tag'] : '';
+    $tag = sanitize_text_field($_POST['tag']);
+    $tag_escolhida = (isset($tag)) ? $tag : '';
 
     if (empty($tag_escolhida))
         return;
@@ -531,9 +532,9 @@ add_action('wp_ajax_tmwpi_ajax_criar_tags', 'tmwpi_ajax_criar_tags');
 add_action('save_post', 'tmwpi_set_post_default_category', 10, 3);
 function tmwpi_set_post_default_category($post_id, $post, $update)
 {
-
-    if (isset($_POST["escolha_tags"])) {
-        $optionArray = $_POST["escolha_tags"];
+    $escolhas_tag = sanitize_text_field($_POST["escolha_tags"]);
+    if (isset($escolhas_tag)) {
+        $optionArray = $escolhas_tag;
 
         // wp_set_post_terms can receive an array of strings separated by commas
         // the false at the end replace all existing post terms for the specific tag (in this case 'tematres_wp' )

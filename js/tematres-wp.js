@@ -20,7 +20,7 @@ jQuery(document).ready(function ($) {
         },
       },
       ajax: {
-        url: '/wp-json/tematres-wp-integration/v1/termo/',
+        url: tmwpi_my_ajax_object.home_url + '/wp-json/tematres-wp-integration/v1/termo/',
         processResults: function (response) {
           // Transforms the top-level key of the response object from 'items' to 'results'
           return {
