@@ -418,7 +418,7 @@ function tmwpi_register_private_taxonomy()
     $args = array(
         'hierarchical'          => false,
         'labels'                => $labels,
-        'show_ui'               => true,
+        'show_ui'               => false,
         //'show_in_nav_menus'     => false,
         //'show_in_menu'          => false,
         'show_in_quick_edit'    => false,
