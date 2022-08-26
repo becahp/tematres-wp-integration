@@ -71,6 +71,7 @@ function tmwpi_tematres_wp_style_scripts_admin()
         'tmwpi_my_ajax_object',
         array(
             'ajax_url' => admin_url('admin-ajax.php'),
+            'home_url' => home_url(),
             'texto_escreva_mais' => __('Please write more', 'tematres-wp-integration'),
             'texto_pesquisa' => __('Searching...', 'tematres-wp-integration'),
         )
