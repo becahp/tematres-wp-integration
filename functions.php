@@ -242,8 +242,8 @@ function tmwpi_post_types_checkbox_field_1_render()
         $name = $post->label;
 
 ?>
-        <input type='checkbox' id='<?php echo $slug ?>' name='post_types[post_types_checkbox_field_1][]' <?php checked(in_array($slug, $post_types_checkbox_field_1), 1); ?> value='<?php echo $slug ?>'>
-        <label for="<?php echo $slug ?>"><?php echo $name ?></label>
+        <input type='checkbox' id='<?php echo esc_attr($slug) ?>' name='post_types[post_types_checkbox_field_1][]' <?php checked(in_array($slug, $post_types_checkbox_field_1), 1); ?> value='<?php echo esc_attr($slug) ?>'>
+        <label for="<?php echo esc_attr($slug) ?>"><?php echo esc_attr($name) ?></label>
         <br>
     <?php
     }
@@ -305,17 +305,17 @@ function tmwpi_pagina_config_renderizar_campos($args)
 
                 if (isset($args['disabled'])) {
                     // hide the actual input bc if it was just a disabled input the info saved in the database would be wrong - bc it would pass empty values and wipe the actual information
-                    echo $prependStart . '<input type="' . $args['subtype'] . '" id="' . $args['id'] . '_disabled" ' . $step . ' ' . $max . ' ' . $min . ' name="' . $args['name'] . '_disabled" size="40" disabled value="' . esc_attr($value) . '" /><input type="hidden" id="' . $args['id'] . '" ' . $step . ' ' . $max . ' ' . $min . ' name="' . $args['name'] . '" size="40" value="' . esc_attr($value) . '" />' . $prependEnd;
+                    echo esc_attr($prependStart) . '<input type="' . esc_attr($args['subtype']) . '" id="' . esc_attr($args['id']) . '_disabled" ' . esc_attr($step) . ' ' . esc_attr($max) . ' ' . esc_attr($min) . ' name="' . esc_attr($args['name']) . '_disabled" size="40" disabled value="' . esc_attr($value) . '" /><input type="hidden" id="' . esc_attr($args['id']) . '" ' . esc_attr($step) . ' ' . esc_attr($max) . ' ' . esc_attr($min) . ' name="' . esc_attr($args['name']) . '" size="40" value="' . esc_attr($value) . '" />' . esc_attr($prependEnd);
                 } else {
                     // The common input is rendered here
 
                     $pattern = $args['pattern'] ? ' "pattern="' .  $args['pattern'] : '';
 
-                    echo $prependStart . '<input type="' . $args['subtype'] . '" id="' . $args['id'] . '" required="' . $args['required'] . $pattern . '" ' . $step . ' ' . $max . ' ' . $min . ' name="' . $args['name'] . '" size="' . $args['size'] . '" placeholder="' . $args['placeholder'] . '" value="' . esc_attr($value) . '" />' . $prependEnd;
+                    echo esc_attr($prependStart) . '<input type="' . esc_attr($args['subtype']) . '" id="' . esc_attr($args['id']) . '" required="' . esc_attr($args['required']) . esc_attr($pattern) . '" ' . esc_attr($step) . ' ' . esc_attr($max) . ' ' . esc_attr($min) . ' name="' . esc_attr($args['name']) . '" size="' . esc_attr($args['size']) . '" placeholder="' . esc_attr($args['placeholder']) . '" value="' . esc_attr($value) . '" />' . esc_attr($prependEnd);
                 }
             } else {
                 $checked = ($value) ? 'checked' : '';
-                echo '<input type="' . $args['subtype'] . '" id="' . $args['id'] . '" "' . $args['required'] . '" name="' . $args['name'] . '" size="40" value="1" ' . $checked . ' />';
+                echo '<input type="' . esc_attr($args['subtype']) . '" id="' . esc_attr($args['id']) . '" "' . esc_attr($args['required']) . '" name="' . esc_attr($args['name']) . '" size="40" value="1" ' . esc_attr($checked) . ' />';
             }
             break;
         default:
@@ -332,7 +332,7 @@ add_shortcode('tmwpi_shortcode_show_tags_tematres', 'tmwpi_show_tags_tematres');
 function tmwpi_show_tags_tematres()
 {
     ?>
-    <form action="<?php echo get_permalink() ?>" method="post">
+    <form action="<?php echo esc_url(get_permalink()) ?>" method="post">
         <div>
             <label for="field-name"> Informe o Termo:</label>
             <?php
@@ -340,7 +340,7 @@ function tmwpi_show_tags_tematres()
             if (empty($termo)) {
                 echo "<input type=\"text\" name=\"termo\" id=\"termo\" minlength=\"2\" placeholder=\"laranja\" required />";
             } else {
-                echo "<input type=\"text\" name=\"termo\" id=\"termo\" minlength=\"2\" value=\"$termo\" placeholder=\"laranja\" required />";
+                echo "<input type=\"text\" name=\"termo\" id=\"termo\" minlength=\"2\" value=\"" . esc_attr($termo) . "\" placeholder=\"laranja\" required />";
             }
             ?>
         </div>
@@ -357,9 +357,9 @@ function tmwpi_show_tags_tematres()
             echo "Termo vazio";
         } else {
             $urlTematres = get_option('pagina_config_tematres_url');
-            echo "<p>Query de busca é \"$termo\"</p>";
+            echo "<p>Query de busca é \"" . esc_attr($termo) . "\"</p>";
             $urlBusca = $urlTematres . "?task=search&arg=" . strtolower($termo);
-            echo "<p>URL de busca é: $urlBusca</p>";
+            echo "<p>URL de busca é: " . esc_url($urlBusca) . "</p>";
 
             $xml = simplexml_load_file($urlBusca)->result;
 
@@ -370,7 +370,7 @@ function tmwpi_show_tags_tematres()
             }
 
             for ($i = 0; $i < count($termos); ++$i) {
-                echo "<strong>Termo $i:</strong> " . $termos[$i] . "<br/>";
+                echo "<strong>Termo " . esc_attr($i) . ":</strong> " . esc_attr($termos[$i]) . "<br/>";
             }
         }
     }
@@ -468,7 +468,7 @@ function tmwpi_metabox_content($post)
     } else {
 
         for ($i = 0; $i < count($optionArray); $i++) {
-            echo '<option value="' . $optionArray[$i] . '" selected="selected">' . $optionArray[$i] . '</option>';
+            echo '<option value="' . esc_attr($optionArray[$i]) . '" selected="selected">' . esc_attr($optionArray[$i]) . '</option>';
         }
     }
 
@@ -485,8 +485,8 @@ function tmwpi_campo_seletor_tags($params)
         'select_id' => 'escolha_tags',
     ], $params);
 
-    echo '<div id="' . $var['div_id'] . '" class="categorydiv">';
-    echo '<select id="' . $var['select_id'] . '" class="tematres-wp-integration-escolhas" name="' . $var['select_id'] . '[]" multiple="multiple">';
+    echo '<div id="' . esc_attr($var['div_id']) . '" class="categorydiv">';
+    echo '<select id="' . esc_attr($var['select_id']) . '" class="tematres-wp-integration-escolhas" name="' . esc_attr($var['select_id']) . '[]" multiple="multiple">';
     echo '<option value="">Selecione as Tags</option>';
     echo '</select>';
     echo '</div>';
@@ -511,7 +511,7 @@ function tmwpi_ajax_criar_tags()
 
     // Caso exista, apenas avisa no console
     if ($term !== 0 && $term !== null) {
-        echo $tag_escolhida . ' ' . __('already exists.', 'tematres-wp-integration');
+        echo esc_attr($tag_escolhida) . ' ' . __('already exists.', 'tematres-wp-integration');
     }
 
     // Caso contrário, cria o termo
@@ -522,7 +522,7 @@ function tmwpi_ajax_criar_tags()
             array()
         );
 
-        echo $tag_escolhida . ' ' . __('saved as Tematres Tags', 'tematres-wp-integration');
+        echo esc_attr($tag_escolhida) . ' ' . __('saved as Tematres Tags', 'tematres-wp-integration');
     }
 
     wp_die();
@@ -556,7 +556,7 @@ function tmwpi_localizationsample_init()
 
     $loaded = load_plugin_textdomain('tematres-wp-integration', false, $path);
     if ($_GET['page'] == basename(__FILE__) && !$loaded) {
-        echo '<div class="error">Sample Localization: ' . __('Could not load the localization file: ' . $path, 'tematres-wp-integration') . '</div>';
+        echo '<div class="error">Sample Localization: ' . __('Could not load the localization file: ' . esc_attr($path), 'tematres-wp-integration') . '</div>';
         return;
     }
 }

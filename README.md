@@ -59,10 +59,3 @@ Exemplo de uso no tema Twenty Twenty One:
         ...
     }
 ```
-
-## To do
-
-- [X] Tested Up To Value is Out of Date, Invalid, or Missing
-- [X] Data Must be Sanitized, Escaped, and Validated
-- [ ] Variables and options must be escaped when echo'd
-- [X] Generic function/class/define/namespace names
