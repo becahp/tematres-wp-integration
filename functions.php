@@ -249,7 +249,7 @@ function tmwpi_post_types_checkbox_field_1_render()
     }
 }
 
-function tmwpi_pagina_config_mensagem_geral_url($args)
+function tmwpi_pagina_config_mensagem_geral_url()
 {
     echo '<p>';
     echo __('This setting applies to all features of the Tematres WP plugin.', 'tematres-wp-integration');
@@ -258,24 +258,24 @@ function tmwpi_pagina_config_mensagem_geral_url($args)
     echo '<p><strong>';
     echo __('URL example:', 'tematres-wp-integration');
     echo ' </strong>';
-    echo 'http://mystematres/vocab/services.php';
+    echo 'http://example.com/vocab/services.php';
     echo '</p>';
 
     echo '<p><strong>';
     echo __('Currently, the saved URL is: ', 'tematres-wp-integration');
     echo ' </strong>';
-    echo get_option('pagina_config_tematres_url');
+    echo esc_attr(get_option('pagina_config_tematres_url'));
     echo '</p>';
 }
 
-function tmwpi_pagina_config_mensagem_geral_name($args)
+function tmwpi_pagina_config_mensagem_geral_name()
 {
     echo '<p>';
     echo __("Define the Tag Name (this doesn't affect the term slug)", 'tematres-wp-integration');
     echo '</p>';
 }
 
-function tmwpi_pagina_config_mensagem_geral_posts($args)
+function tmwpi_pagina_config_mensagem_geral_posts()
 {
     echo '<p>';
     echo __("Choose the post types where the Tematres Tags will be applied", 'tematres-wp-integration');
