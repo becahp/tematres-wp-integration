@@ -2,7 +2,7 @@
 
 /** 
  * Plugin Name: Tematres WP
- * Plugin URI:  https://github.com/becahp/tematres-wp
+ * Plugin URI:  https://github.com/becahp/tematres-wp-integration
  * Description: WordPress and Tematres Integration
  * Version: 1.0
  * Requires at least: 6.0
@@ -32,13 +32,13 @@ function tmwpi_tematres_wp_style_scripts()
 {
     $ver = time();
 
-    wp_register_style('css_tematres_wp', TEMATRES_WP_CSS_URL . 'tematres-wp.css', false, $ver);
+    wp_register_style('css_tematres_wp', TEMATRES_WP_CSS_URL . 'tematres-wp-integration.css', false, $ver);
     wp_enqueue_style('css_tematres_wp');
 
     wp_register_style('css_select2', TEMATRES_WP_CSS_URL . 'select2.min.css', false, $ver);
     wp_enqueue_style('css_select2');
 
-    wp_enqueue_script('js_tematres_wp', TEMATRES_WP_JS_URL . 'tematres-wp.js', array('jquery', 'js_select2'), $ver);
+    wp_enqueue_script('js_tematres_wp', TEMATRES_WP_JS_URL . 'tematres-wp-integration.js', array('jquery', 'js_select2'), $ver);
 
     wp_enqueue_script('js_select2', TEMATRES_WP_JS_URL . 'select2.min.js', array(), $ver);
 
@@ -62,10 +62,10 @@ function tmwpi_tematres_wp_style_scripts_admin()
 {
     $ver = time();
 
-    wp_register_style('css_tematres_wp', TEMATRES_WP_CSS_URL . 'tematres-wp.css', false, $ver);
+    wp_register_style('css_tematres_wp', TEMATRES_WP_CSS_URL . 'tematres-wp-integration.css', false, $ver);
     wp_enqueue_style('css_tematres_wp');
 
-    wp_enqueue_script('js_tematres_wp', TEMATRES_WP_JS_URL . 'tematres-wp.js', array(), $ver);
+    wp_enqueue_script('js_tematres_wp', TEMATRES_WP_JS_URL . 'tematres-wp-integration.js', array(), $ver);
     wp_localize_script(
         'js_tematres_wp',
         'tmwpi_my_ajax_object',
@@ -88,7 +88,7 @@ function tmwpi_tematres_wp_admin_menu()
         __('Tematres WP', 'tematres-wp-integration'),
         __('Tematres WP', 'tematres-wp-integration'),
         'manage_options',
-        'tematres-wp-plugin',
+        'tematres-wp-integration',
         'tmwpi_tematres_wp_admin_page',
         'dashicons-chart-area',
         26
