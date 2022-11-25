@@ -1,4 +1,4 @@
-# Tematres WP
+# Tematres WP Integration
 
 ## English
 
@@ -7,7 +7,7 @@ Plugin that implements the integration of a Tematres with WordPress.
 When informing a Tematres API URL, WP recognizes the terms registered in Tematres as Tags available to publish to posts.
 
 ### Usage
-Install and activate the plugin. Go to the "Tematres WP" menu in the panel and configure the requirements:
+Install and activate the plugin. Go to the "Tematres WP Integration" menu in the panel and configure the requirements:
 - Tematres API URL
 - Tag Name
 - Post where the tags will be applied
@@ -38,7 +38,7 @@ Ao informar a URL da API um Tematres, o WP reconhecerá os termos cadastrados no
 
 ### Modo de usar
 
-Instale e ative o plugin. Vá no menu "Tematres Wp" no painel e configure os requisitos:
+Instale e ative o plugin. Vá no menu "Tematres WP Integration" no painel e configure os requisitos:
 - URL da API do Tematres
 - Nome da Tag
 - Post onde as tags serão aplicadas

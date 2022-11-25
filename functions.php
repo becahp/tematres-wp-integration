@@ -1,7 +1,7 @@
 <?php
 
 /** 
- * Plugin Name: Tematres WP
+ * Plugin Name: Tematres WP Integration
  * Plugin URI:  https://github.com/becahp/tematres-wp-integration
  * Description: WordPress and Tematres Integration
  * Version: 1.0
@@ -85,8 +85,8 @@ add_action('admin_enqueue_scripts', 'tmwpi_tematres_wp_style_scripts_admin');
 function tmwpi_tematres_wp_admin_menu()
 {
     add_menu_page(
-        __('Tematres WP', 'tematres-wp-integration'),
-        __('Tematres WP', 'tematres-wp-integration'),
+        __('Tematres WP Integration', 'tematres-wp-integration'),
+        __('Tematres WP Integration', 'tematres-wp-integration'),
         'manage_options',
         'tematres-wp-integration',
         'tmwpi_tematres_wp_admin_page',
@@ -252,7 +252,7 @@ function tmwpi_post_types_checkbox_field_1_render()
 function tmwpi_pagina_config_mensagem_geral_url()
 {
     echo '<p>';
-    echo __('This setting applies to all features of the Tematres WP plugin.', 'tematres-wp-integration');
+    echo __('This setting applies to all features of the Tematres WP Integration plugin.', 'tematres-wp-integration');
     echo '</p>';
 
     echo '<p><strong>';

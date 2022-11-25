@@ -1,5 +1,5 @@
 /*
- * Plugin Name: Tematres WP
+ * Plugin Name: Tematres WP Integration
  * Author: Rebeca Moura e Lucas Rodrigues
  * Text Domain: tematres-wp-integration
  */

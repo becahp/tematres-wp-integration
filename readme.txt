@@ -1,4 +1,4 @@
-=== Tematres WP Plugin ===
+=== Tematres WP Integration Plugin ===
 Contributors: becahp, lucasrodri
 Tags: Tematres, Custom Tags
 Requires at least: 5.4
@@ -15,7 +15,7 @@ When informing a Tematres API URL, WP recognizes the terms registered in Tematre
 
 = Usage =
 
-Install and activate the plugin. Go to the "Tematres WP" menu in the panel and configure the requirements:
+Install and activate the plugin. Go to the "Tematres WP Integration" menu in the panel and configure the requirements:
 - Tematres API URL
 - Tag Name
 - Post where the tags will be applied
@@ -41,4 +41,4 @@ Usage example in Twenty Twenty One theme:
 
 = GitHub =
 
-Please reach out to make pull requests or issues on the <a href="https://github.com/becahp/tematres-wp">Tematres WP GitHub repository</a>.
+Please reach out to make pull requests or issues on the <a href="https://github.com/becahp/tematres-wp-integration">Tematres WP Integration GitHub repository</a>.

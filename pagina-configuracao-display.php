@@ -18,7 +18,7 @@
 	<div id="icon-themes" class="icon32"></div>
 	
 	<h2>
-	<?php echo __('Tematres WP plugin settings', 'tematres-wp-integration'); ?> 
+	<?php echo __('Tematres WP Integration plugin settings', 'tematres-wp-integration'); ?> 
 	</h2>
 	
 	<!--NEED THE settings_errors below so that the errors/success messages are shown after submission - wasn't working once we started using add_menu_page and stopped using add_options_page so needed this-->
