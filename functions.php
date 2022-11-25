@@ -534,14 +534,8 @@ add_action('save_post', 'tmwpi_set_post_default_category', 10, 3);
 function tmwpi_set_post_default_category($post_id)
 {
     // https://wordpress.stackexchange.com/questions/24736/wordpress-sanitize-array
-    $escolhas_tag = isset( $_POST['escolha_tags'] ) ? (array) $_POST['escolha_tags'] : array();
-    $escolhas_tag = array_map( 'sanitize_text_field', $escolhas_tag );
-    
-    if (isset($escolhas_tag)) {
-        // wp_set_post_terms can receive an array of strings separated by commas
-        // the false at the end replace all existing post terms for the specific tag (in this case 'tematres_wp' )
-        wp_set_post_terms($post_id, $escolhas_tag, 'tematres_wp', false);
-    }
+    $escolhas_tag = array_map('sanitize_text_field', $_POST['escolha_tags']);
+    wp_set_post_terms($post_id, $escolhas_tag, 'tematres_wp', false);
 }
 
 /**
