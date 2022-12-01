@@ -1,6 +1,7 @@
 === Tematres WP Integration Plugin ===
 Contributors: becahp, lucasrodri
 Tags: Tematres, Custom Tags
+Requires PHP: 7.4
 Requires at least: 5.4
 Tested up to: 6.1
 Stable tag: 1.0
@@ -27,7 +28,7 @@ To return the tags in the frontend of a post which uses, for example, the ``get_
 
 Usage example in Twenty Twenty One theme:
 
-```php
+``
     if ( has_category() || has_tag() || has_tag_tematres_wp() ) {
         ...
         if ( function_exists( 'tmwpi_get_the_tag_list' ) ) {
@@ -37,8 +38,12 @@ Usage example in Twenty Twenty One theme:
         }
         ...
     }
-```
+``
 
 = GitHub =
 
 Please reach out to make pull requests or issues on the <a href="https://github.com/becahp/tematres-wp-integration">Tematres WP Integration GitHub repository</a>.
+
+== Screenshots ==
+1. Settings page.
+2. Tematres Tag metabox at the post or custom post type edit page.
