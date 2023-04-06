@@ -1,6 +1,8 @@
 # Tematres WP Integration
 
-## English
+This plugin is the result of a partnership with the Brazilian Institute of Information in Science and Technology (IBICT), which aims to facilitate access to scientific information in Brazil. IBICT is an organization linked to the Ministry of Science, Technology, and Innovation and its mission is to promote the production, organization, dissemination, and preservation of information in science, technology, and innovation in the country.
+
+## Definition
 
 Plugin that implements the integration of a Tematres with WordPress.
 
@@ -30,7 +32,13 @@ Usage example in Twenty Twenty One theme:
         ...
     }
 ```
-## Português
+
+# Integrador Tematres WP
+
+Este plugin é resultado de uma parceria com o Instituto Brasileiro de Informação em Ciência e Tecnologia (IBICT), que tem como objetivo facilitar o acesso à informação científica no Brasil. O IBICT é uma organização vinculada ao Ministério da Ciência, Tecnologia e Inovação e tem como missão promover a produção, organização, disseminação e preservação da informação em ciência, tecnologia e inovação no país.
+
+
+## Definição
 
 Plugin que implementa a integração de um Tematres com o WordPress.
 
